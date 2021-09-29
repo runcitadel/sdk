@@ -1,8 +1,7 @@
 import Manager from "./manager/index.js";
 import Middleware from "./middleware/index.js";
 
-// Connects to the Citadel api
-export default class Citadel {
+export class Citadel {
     public manager;
     public middleware;
     private _jwt = "";
