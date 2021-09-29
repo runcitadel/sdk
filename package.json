@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "eslint --fix \"src/**/*.ts\" && prettier -w \"src/**/*.ts\"",
     "build": "tsc",
-    "docs": "typedoc --out docs --mode file --tsconfig tsconfig.json"
+    "docs": "typedoc --out docs --tsconfig tsconfig.json"
   },
   "name": "@runcitadel/sdk",
   "version": "0.0.1-alpha.1"
