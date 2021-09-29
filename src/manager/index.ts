@@ -1,7 +1,7 @@
-import ApiConnection from "../common/connection.js";
-import ManagerAuth from "./auth.js";
+import { ApiConnection } from "../common/connection.js";
+import { ManagerAuth } from "./auth.js";
 
-export default class Manager extends ApiConnection {
+export class Manager extends ApiConnection {
     private _auth: InstanceType<typeof ManagerAuth>;
     constructor(baseUrl: string) {
         super(baseUrl);

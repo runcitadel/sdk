@@ -1,6 +1,6 @@
-import ApiConnection from "../common/connection.js";
+import { ApiConnection } from "../common/connection.js";
 
-export default class Middleware extends ApiConnection {
+export class Middleware extends ApiConnection {
     constructor(baseUrl: string) {
         super(baseUrl);
     }

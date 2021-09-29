@@ -1,5 +1,5 @@
-import Manager from "./manager/index.js";
-import Middleware from "./middleware/index.js";
+import { Manager } from "./manager/index.js";
+import { Middleware } from "./middleware/index.js";
 
 export class Citadel {
     public manager;
