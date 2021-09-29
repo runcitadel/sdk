@@ -59,3 +59,6 @@ export class Citadel {
         this.middleware.jwt = this._jwt;
     }
 }
+
+export type { Manager } from "./manager/index.js";
+export type { Middleware } from "./middleware/index.js";
