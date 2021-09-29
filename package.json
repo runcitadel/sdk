@@ -1,0 +1,21 @@
+{
+  "packageManager": "yarn@3.0.2",
+  "devDependencies": {
+    "@types/eslint": "^7",
+    "@types/node": "^16.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
+    "typedoc": "^0.22.4",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "node-fetch": "^3.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --fix \"src/**/*.ts\" && prettier -w \"src/**/*.ts\"",
+    "build": "tsc",
+    "doc": "typedoc --out doc --mode file --tsconfig tsconfig.json"
+  }
+}

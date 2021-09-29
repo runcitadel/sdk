@@ -1,0 +1,5 @@
+coverage
+.yarn
+node_modules
+lnd
+lib
