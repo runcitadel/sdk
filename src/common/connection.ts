@@ -12,7 +12,7 @@ export class ApiConnection {
     this._jwt = jwt;
   }
 
-  private async request(
+  async #request(
     url: string,
     method: "GET" | "POST" | "PUT" = "GET",
     body: unknown = {}
@@ -55,14 +55,14 @@ export class ApiConnection {
   }
 
   protected async get(url: string): Promise<unknown> {
-    return await this.request(url);
+    return await this.#request(url);
   }
 
   protected async post(url: string, body: unknown = {}): Promise<unknown> {
-    return await this.request(url, "POST", body);
+    return await this.#request(url, "POST", body);
   }
 
   protected async put(url: string, body: unknown = {}): Promise<unknown> {
-    return await this.request(url, "PUT", body);
+    return await this.#request(url, "PUT", body);
   }
 }
