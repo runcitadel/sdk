@@ -1,4 +1,7 @@
 import fetch from "node-fetch";
+import debug from "debug";
+
+const log = debug("citadel");
 
 export abstract class ApiConnection {
   #baseUrl: string;
@@ -30,9 +33,9 @@ export abstract class ApiConnection {
         ...headers,
         Authorization: authHeader
       };
-    /*console.log(
+    log(
       `${method} ${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}...`
-    );*/
+    );
     const response = await fetch(
       `${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}`,
       {
