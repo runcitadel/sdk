@@ -2,10 +2,11 @@
   "packageManager": "yarn@3.0.2",
   "devDependencies": {
     "@types/eslint": "^7",
-    "@types/node": "^16.10.1",
+    "@types/node": "^16.10.2",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
+    "npm-check-updates": "^11.8.5",
     "typedoc": "^0.22.4",
     "typescript": "^4.4.3"
   },
@@ -16,7 +17,8 @@
   "scripts": {
     "lint": "eslint --fix \"src/**/*.ts\" && prettier -w \"src/**/*.ts\"",
     "build": "tsc",
-    "docs": "typedoc --out docs src/index.ts"
+    "docs": "typedoc --out docs src/index.ts",
+    "deps": "ncu -u"
   },
   "name": "@runcitadel/sdk",
   "version": "0.0.1-alpha.1"
