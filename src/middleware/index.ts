@@ -5,9 +5,18 @@ export class Middleware extends ApiConnection {
         super(baseUrl);
     }
 
+    /**
+     * Ping a node and get version information
+     * 
+     * @returns Version information about the node
+     */
+     public async ping(): Promise<{ version: string, features?: string[], isCitadel?: true | undefined }> {
+        return await this.get("ping") as { version: string, features?: string[], isCitadel?: true | undefined }
+    }
+
     public async isOnline(): Promise<boolean> {
         try {
-            await this.get("ping");
+            await this.ping();
             return true;
         } catch {
             return false;
