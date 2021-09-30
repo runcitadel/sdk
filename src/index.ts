@@ -4,8 +4,8 @@ import { Middleware } from "./middleware/index.js";
 export class Citadel {
     public manager;
     public middleware;
-    private _jwt = "";
-    private _password = "";
+    #jwt = "";
+    #password = "";
 
     constructor(baseUrl: string) {
         const managerApi = new URL("/manager-api", baseUrl);
@@ -35,7 +35,7 @@ export class Citadel {
     public async login(password: string, savePw: boolean): Promise<void> {
         this.jwt = await this.manager.auth.login(password);
         if(savePw)
-            this._password = password;
+            this.#password = password;
     }
 
     /**
@@ -46,17 +46,17 @@ export class Citadel {
             await this.manager.auth.test();
             this.jwt = await this.manager.auth.refresh();
         } catch {
-            if(this._password)
-            this.jwt = await this.manager.auth.login(this._password);
+            if(this.#password)
+            this.jwt = await this.manager.auth.login(this.#password);
             else
                 throw new Error("Can't refresh, lost connection")
         }
     }
 
     private set jwt(newJwt: string) {
-        this._jwt = newJwt;
-        this.manager.jwt = this._jwt;
-        this.middleware.jwt = this._jwt;
+        this.#jwt = newJwt;
+        this.manager.jwt = this.#jwt;
+        this.middleware.jwt = this.#jwt;
     }
 }
 

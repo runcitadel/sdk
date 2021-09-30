@@ -2,10 +2,10 @@ import { ApiConnection } from "../common/connection.js";
 import { ManagerAuth } from "./auth.js";
 
 export class Manager extends ApiConnection {
-    private _auth: InstanceType<typeof ManagerAuth>;
+    #auth: InstanceType<typeof ManagerAuth>;
     constructor(baseUrl: string) {
         super(baseUrl);
-        this._auth = new ManagerAuth(baseUrl);
+        this.#auth = new ManagerAuth(baseUrl);
     }
 
     public async isOnline(): Promise<boolean> {
@@ -18,11 +18,11 @@ export class Manager extends ApiConnection {
     }
 
     public get auth(): InstanceType<typeof ManagerAuth> {
-        return this._auth;
+        return this.#auth;
     }
 
     public set jwt(jwt: string) {
-        this._auth.jwt = jwt;
+        this.#auth.jwt = jwt;
         this._jwt = jwt;
     }
 }

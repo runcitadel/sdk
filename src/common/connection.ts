@@ -1,11 +1,11 @@
 import fetch from "node-fetch";
 
 export class ApiConnection {
-  private baseUrl: string;
+  #baseUrl: string;
   protected _jwt = "";
 
   constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+    this.#baseUrl = baseUrl;
   }
 
   public set jwt(jwt: string) {
@@ -31,10 +31,10 @@ export class ApiConnection {
         Authorization: authHeader
       };
     /*console.log(
-      `${method} ${this.baseUrl}${url.startsWith("/") ? url : "/" + url}...`
+      `${method} ${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}...`
     );*/
     const response = await fetch(
-      `${this.baseUrl}${url.startsWith("/") ? url : "/" + url}`,
+      `${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}`,
       {
         headers,
         method,
@@ -54,15 +54,15 @@ export class ApiConnection {
     }
   }
 
-  public async get(url: string): Promise<unknown> {
+  protected async get(url: string): Promise<unknown> {
     return await this.request(url);
   }
 
-  public async post(url: string, body: unknown = {}): Promise<unknown> {
+  protected async post(url: string, body: unknown = {}): Promise<unknown> {
     return await this.request(url, "POST", body);
   }
 
-  public async put(url: string, body: unknown = {}): Promise<unknown> {
+  protected async put(url: string, body: unknown = {}): Promise<unknown> {
     return await this.request(url, "PUT", body);
   }
 }
