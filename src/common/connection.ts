@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export class ApiConnection {
+export abstract class ApiConnection {
   #baseUrl: string;
   protected _jwt = "";
 
