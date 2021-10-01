@@ -1,7 +1,7 @@
-import fetch from "node-fetch";
-import debug from "debug";
-
-const log = debug("citadel");
+// Detect if we're using Node
+const isNode = typeof process !== 'undefined' && process.versions != null && process.versions.node != null;
+const fetch = isNode ? (await import('node-fetch')).default : window.fetch;
+const log = isNode ? (await import("debug")).default("citadel") : console.log;
 
 export abstract class ApiConnection {
   #baseUrl: string;
