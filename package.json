@@ -9,7 +9,6 @@
     "eslint": "^7.32.0",
     "npm-check-updates": "^11.8.5",
     "typedoc": "^0.22.4",
-    "typedoc-neo-theme": "^1.1.1",
     "typescript": "^4.4.3"
   },
   "dependencies": {
@@ -20,7 +19,7 @@
   "scripts": {
     "lint": "eslint --fix \"src/**/*.ts\" && prettier -w \"src/**/*.ts\"",
     "build": "tsc",
-    "docs": "typedoc --out docs src/index.ts --theme ./node_modules/typedoc-neo-theme/bin/default --plugin typedoc-neo-theme",
+    "docs": "typedoc --out docs src/index.ts",
     "deps": "ncu -u"
   },
   "name": "@runcitadel/sdk",
