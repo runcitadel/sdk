@@ -1,11 +1,14 @@
 import { ApiConnection } from "../common/connection.js";
+import { ManagerApps } from "./apps.js";
 import { ManagerAuth } from "./auth.js";
 
 export class Manager extends ApiConnection {
     #auth: InstanceType<typeof ManagerAuth>;
+    #apps: InstanceType<typeof ManagerApps>
     constructor(baseUrl: string) {
         super(baseUrl);
         this.#auth = new ManagerAuth(baseUrl);
+        this.#apps = new ManagerApps(baseUrl);
     }
 
     /**
@@ -47,6 +50,10 @@ export class Manager extends ApiConnection {
 
     public get auth(): InstanceType<typeof ManagerAuth> {
         return this.#auth;
+    }
+
+    public get apps(): InstanceType<typeof ManagerApps> {
+        return this.#apps;
     }
 
     public set jwt(jwt: string) {
