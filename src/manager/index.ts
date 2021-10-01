@@ -1,4 +1,4 @@
-import { ApiConnection } from "../common/connection.js";
+import { ApiConnection } from "platform/connection.js";
 import { ManagerApps } from "./apps.js";
 import { ManagerAuth } from "./auth.js";
 import { ManagerExternal } from "./external.js";

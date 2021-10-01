@@ -1,4 +1,4 @@
-import { ApiConnection } from "../common/connection.js";
+import { ApiConnection } from "platform/connection.js";
 
 export class ManagerExternal extends ApiConnection {
   constructor(baseUrl: string) {

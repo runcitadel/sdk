@@ -8,21 +8,22 @@
         "declaration": true,
         "strictFunctionTypes": true,
         "lib": [
-            "ES2020"
+            "ES2020",
+            "DOM"
         ],
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
-            "platform/*": ["src/platform/node/*"]
+            "platform/*": ["src/platform/browser/*"]
         },
-        "declarationDir": "dist"
+        "declarationDir": "browser"
     },
     "include": [
         "src"
     ],
     "exclude": [
-        "src/platform/browser",
-        "src/index.browser.ts"
+        "src/platform/node",
+        "src/index.ts"
     ]
 }

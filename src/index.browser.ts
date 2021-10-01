@@ -1,7 +1,5 @@
 import { Manager } from "./manager/index.js";
 import { Middleware } from "./middleware/index.js";
-import {fetch} from "undici";
-import { URL } from "url";
 
 export class Citadel {
     #manager;

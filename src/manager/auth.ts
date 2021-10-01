@@ -1,4 +1,4 @@
-import { ApiConnection } from "../common/connection.js";
+import { ApiConnection } from "platform/connection.js";
 
 /** A user.json file on Citadel. Some data may automatically be added and not actually in the file */
 export type user = {

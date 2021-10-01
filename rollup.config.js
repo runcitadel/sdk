@@ -4,11 +4,18 @@ export default {
   input: "src/index.ts",
   output: [
     {
-      file: "dist/index.js",
+      dir: "dist",
       format: "esm",
     },
   ],
-  plugins: [typescript({
-      target: "es2020"
-  })],
+  plugins: [
+    typescript({
+      declaration: true,
+    }),
+  ],
+  external: [
+    "undici",
+    "debug",
+    "url"
+  ]
 };
