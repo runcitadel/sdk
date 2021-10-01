@@ -3,4 +3,4 @@ coverage
 node_modules
 lnd
 lib
-rollup.config.js
+rollup.config*.js
