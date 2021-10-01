@@ -1,9 +1,9 @@
 # Citadel SDK
 
-This package makes it easy to integrate with Citadel.
-It is a TypeScript-based wrapper around the Citadel REST API.
+Lightweight, type-safe wrapper around the Citadel API.
 
-This is a very early proof of concept, please do not use it in production.
+
+**This is a very early proof of concept, please do not use it in production yet.**
 
 ### Note about ES Modules
 
