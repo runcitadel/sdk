@@ -1,14 +1,20 @@
 import { ApiConnection } from "../common/connection.js";
 import { ManagerApps } from "./apps.js";
 import { ManagerAuth } from "./auth.js";
+import { ManagerExternal } from "./external.js";
+import { ManagerSystem } from "./system.js";
 
 export class Manager extends ApiConnection {
     #auth: InstanceType<typeof ManagerAuth>;
-    #apps: InstanceType<typeof ManagerApps>
+    #apps: InstanceType<typeof ManagerApps>;
+    #external: InstanceType<typeof ManagerExternal>;
+    #system: InstanceType<typeof ManagerSystem>;
     constructor(baseUrl: string) {
         super(baseUrl);
         this.#auth = new ManagerAuth(baseUrl);
         this.#apps = new ManagerApps(baseUrl);
+        this.#external = new ManagerExternal(baseUrl);
+        this.#system = new ManagerSystem(baseUrl);
     }
 
     /**
@@ -54,6 +60,14 @@ export class Manager extends ApiConnection {
 
     public get apps(): InstanceType<typeof ManagerApps> {
         return this.#apps;
+    }
+
+    public get external(): InstanceType<typeof ManagerExternal> {
+        return this.#external;
+    }
+
+    public get system(): InstanceType<typeof ManagerSystem> {
+        return this.#system;
     }
 
     public set jwt(jwt: string) {
