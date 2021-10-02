@@ -1,5 +1,5 @@
-import {fetch} from 'undici';
-import debug from 'debug';
+import { fetch } from "undici";
+import debug from "debug";
 const log = debug("citadel");
 
 export abstract class ApiConnection {
@@ -24,13 +24,13 @@ export abstract class ApiConnection {
     let headers: Record<string, string> = {};
     if (method !== "GET") {
       headers = {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       };
     }
     if (authHeader)
       headers = {
         ...headers,
-        Authorization: authHeader
+        Authorization: authHeader,
       };
     log(
       `${method} ${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}...`
@@ -40,7 +40,7 @@ export abstract class ApiConnection {
       {
         headers,
         method,
-        ...(method !== "GET" ? { body: JSON.stringify(body) } : {})
+        ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
       }
     );
 

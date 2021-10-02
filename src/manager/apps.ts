@@ -33,4 +33,8 @@ export class ManagerApps extends ApiConnection {
   async uninstall(id: string): Promise<void> {
     await this.post(`/${id}/uninstall`);
   }
+
+  public set jwt(newJwt: string) {
+      this._jwt = newJwt;
+  }
 }

@@ -72,6 +72,9 @@ export class Manager extends ApiConnection {
 
     public set jwt(jwt: string) {
         this.#auth.jwt = jwt;
+        this.#apps.jwt = jwt;
+        this.#external.jwt = jwt;
+        this.#system.jwt = jwt;
         this._jwt = jwt;
     }
 }

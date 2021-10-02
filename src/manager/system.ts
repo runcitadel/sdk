@@ -104,4 +104,8 @@ export class ManagerSystem extends ApiConnection {
   async uptime(): Promise<number> {
     return ((await this.get("uptime")) as { uptime: number }).uptime;
   }
+
+  public set jwt(newJwt: string) {
+      this._jwt = newJwt;
+  }
 }

@@ -20,20 +20,20 @@ export abstract class ApiConnection {
     let headers: Record<string, string> = {};
     if (method !== "GET") {
       headers = {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       };
     }
     if (authHeader)
       headers = {
         ...headers,
-        Authorization: authHeader
+        Authorization: authHeader,
       };
     const response = await fetch(
       `${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}`,
       {
         headers,
         method,
-        ...(method !== "GET" ? { body: JSON.stringify(body) } : {})
+        ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
       }
     );
 
