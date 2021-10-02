@@ -1,14 +1,17 @@
 import { ApiConnection } from "platform/connection.js";
 import { MiddlewareBitcoin } from "./bitcoin.js";
+import { MiddlewareLND } from "./lnd.js";
 import { MiddlewarePages } from "./pages.js";
 
 export class Middleware extends ApiConnection {
   #pages: MiddlewarePages;
   #bitcoin: MiddlewareBitcoin;
+  #lnd: MiddlewareLND;
   constructor(baseUrl: string) {
     super(baseUrl);
     this.#pages = new MiddlewarePages(baseUrl);
     this.#bitcoin = new MiddlewareBitcoin(baseUrl);
+    this.#lnd = new MiddlewareLND(baseUrl);
   }
 
   /**
@@ -40,6 +43,7 @@ export class Middleware extends ApiConnection {
   public set jwt(newJwt: string) {
     this.#bitcoin.jwt = newJwt;
     this.#pages.jwt = newJwt;
+    this.#lnd.jwt = newJwt;
     this._jwt = newJwt;
   }
 
@@ -49,5 +53,9 @@ export class Middleware extends ApiConnection {
 
   public get bitcoin(): MiddlewareBitcoin {
     return this.#bitcoin;
+  }
+
+  public get lnd(): MiddlewareLND {
+    return this.#lnd;
   }
 }
