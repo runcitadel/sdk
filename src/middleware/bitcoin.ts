@@ -4,7 +4,7 @@ import {
   MempoolInfo,
   MiningInfo,
   NetworkInfo,
-  Transaction,
+  BitcoinTransaction,
 } from "./bitcoin-types";
 
 export class MiddlewareBitcoin extends ApiConnection {
@@ -90,7 +90,7 @@ export class MiddlewareBitcoin extends ApiConnection {
     blocktime: number;
     prevblock: string;
     nextblock: string | undefined;
-    transactions: string | Transaction[];
+    transactions: string | BitcoinTransaction[];
   }> {
     return (await this.get(`/block?hash=${hash}`)) as {
       block: string;
@@ -100,7 +100,7 @@ export class MiddlewareBitcoin extends ApiConnection {
       blocktime: number;
       prevblock: string;
       nextblock: string | undefined;
-      transactions: string | Transaction[];
+      transactions: string | BitcoinTransaction[];
     };
   }
 

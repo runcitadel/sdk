@@ -10,7 +10,7 @@ export type Block = {
   version: number;
   verxionHex: string;
   merkleroot: string;
-  tx: Transaction[] | string;
+  tx: BitcoinTransaction[] | string;
   hex: string;
   time: number;
   mediantime: number;
@@ -142,7 +142,7 @@ export type PeerInfo = {
     [key: string]: number;
   };
 };
-export type Transaction = {
+export type BitcoinTransaction = {
   txid: string;
   hash: string;
   version: number;
