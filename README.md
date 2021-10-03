@@ -7,12 +7,15 @@ Lightweight, type-safe wrapper around the Citadel API.
 
 ### Note about ES Modules
 
-This package uses ES Modules. It can only be imported in true ESM projects, not using `require()`.
+The Node.js version of this package uses ES Modules. It can only be imported in true ESM projects, not using `require()`.
+
+The browser version also has a CommonJS build, available at `@runcitadel/sdk/browser-cjs/index.browser.cjs`.
+
 
 ### Simple example
 
 ```JavaScript
-import {Citadel} from "./lib/index.js";
+import {Citadel} from "@runcitadel/sdk";
 
 console.log("Initializing testing...");
 // Try to discover a Citadel
