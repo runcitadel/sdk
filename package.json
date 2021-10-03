@@ -22,13 +22,13 @@
   "type": "module",
   "scripts": {
     "lint": "eslint --fix \"src/**/*.ts\" && prettier -w \"src/**/*.ts\"",
-    "build": "rollup -c && rollup -c rollup.config.browser.js",
+    "build": "rollup -c && rollup -c rollup.config.browser.js && rollup -c rollup.config.browser-cjs.js && mv browser-cjs/index.browser.js browser-cjs/index.browser.cjs",
     "docs": "typedoc --out docs src/index.ts",
     "deps": "ncu -u",
     "prepublish": "yarn build"
   },
   "name": "@runcitadel/sdk",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "main": "dist/index.js",
   "browser": "browser/index.browser.js"
 }
