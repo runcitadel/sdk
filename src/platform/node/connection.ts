@@ -14,11 +14,11 @@ export abstract class ApiConnection {
     this._jwt = jwt;
   }
 
-  async #request(
+  async #request<ResponseType>(
     url: string,
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
     body: unknown = {}
-  ): Promise<unknown> {
+  ): Promise<ResponseType> {
     let authHeader = "";
     if (this.jwt) authHeader = `JWT ${this.jwt}`;
     let headers: Record<string, string> = {};
@@ -60,22 +60,22 @@ export abstract class ApiConnection {
       throw new Error(parsed);
     }
 
-    return parsed;
+    return parsed as ResponseType;
   }
 
-  protected async get(url: string): Promise<unknown> {
-    return await this.#request(url);
+  protected async get<ResponseType = unknown>(url: string): Promise<ResponseType> {
+    return await this.#request<ResponseType>(url);
   }
 
-  protected async post(url: string, body: unknown = {}): Promise<unknown> {
-    return await this.#request(url, "POST", body);
+  protected async post<ResponseType = unknown>(url: string, body: unknown = {}): Promise<ResponseType> {
+    return await this.#request<ResponseType>(url, "POST", body);
   }
 
-  protected async put(url: string, body: unknown = {}): Promise<unknown> {
-    return await this.#request(url, "PUT", body);
+  protected async put<ResponseType = unknown>(url: string, body: unknown = {}): Promise<ResponseType> {
+    return await this.#request<ResponseType>(url, "PUT", body);
   }
 
-  protected async delete(url: string, body: unknown = {}): Promise<unknown> {
-    return await this.#request(url, "DELETE", body);
+  protected async delete<ResponseType = unknown>(url: string, body: unknown = {}): Promise<ResponseType> {
+    return await this.#request<ResponseType>(url, "DELETE", body);
   }
 }

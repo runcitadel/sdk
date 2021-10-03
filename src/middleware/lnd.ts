@@ -2,11 +2,13 @@ import { ApiConnection } from "platform/connection.js";
 import { LNDChannel } from "./lnd/channel.js";
 import { LNDInfo } from "./lnd/info.js";
 import { LNDLightning } from "./lnd/lightning.js";
+import { LNDWallet } from "./lnd/wallet.js";
 
 export class MiddlewareLND extends ApiConnection {
   #channel: LNDChannel;
   #info: LNDInfo;
   #lightning: LNDLightning;
+  #wallet: LNDWallet;
   constructor(baseUrl: string) {
     super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`);
     this.#channel = new LNDChannel(
@@ -16,6 +18,9 @@ export class MiddlewareLND extends ApiConnection {
       `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`
     );
     this.#lightning = new LNDLightning(
+      `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`
+    );
+    this.#wallet = new LNDWallet(
       `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`
     );
   }
@@ -45,5 +50,9 @@ export class MiddlewareLND extends ApiConnection {
 
   public get lightning(): LNDLightning {
     return this.#lightning;
+  }
+
+  public get wallet(): LNDWallet {
+    return this.#wallet;
   }
 }
