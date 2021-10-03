@@ -12,7 +12,7 @@ export abstract class ApiConnection {
 
   async #request(
     url: string,
-    method: "GET" | "POST" | "PUT" = "GET",
+    method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
     body: unknown = {}
   ): Promise<unknown> {
     let authHeader = "";
@@ -66,5 +66,9 @@ export abstract class ApiConnection {
 
   protected async put(url: string, body: unknown = {}): Promise<unknown> {
     return await this.#request(url, "PUT", body);
+  }
+
+  protected async delete(url: string, body: unknown = {}): Promise<unknown> {
+    return await this.#request(url, "DELETE", body);
   }
 }
