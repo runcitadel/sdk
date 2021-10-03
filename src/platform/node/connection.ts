@@ -49,11 +49,18 @@ export abstract class ApiConnection {
     }
 
     const data = await response.text();
+    let parsed: unknown;
     try {
-      return JSON.parse(data);
+      parsed = JSON.parse(data);
     } catch {
       throw new Error(`Received invalid data: ${data}`);
     }
+
+    if(typeof parsed === "string") {
+      throw new Error(parsed);
+    }
+
+    return parsed;
   }
 
   protected async get(url: string): Promise<unknown> {
