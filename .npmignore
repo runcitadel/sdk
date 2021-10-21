@@ -4,3 +4,4 @@ index.js
 yarn.lock
 tsconfig.json
 yarn.lock
+rollup.config*.js

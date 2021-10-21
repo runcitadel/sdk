@@ -4,3 +4,4 @@ node_modules
 lnd
 lib
 rollup.config*.js
+*.js

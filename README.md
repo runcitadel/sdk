@@ -1,15 +1,16 @@
 # Citadel SDK
 
-Lightweight, type-safe wrapper around the Citadel API.
+<small>Lightweight, type-safe wrapper around the Citadel API.</small>
+
+The Citadel SDK allows you to easily interact with a Citadel node on the local network in your app.
+It can power your app, but will also be used in the new Citadel dashboard and mobile app.
 
 
 **This is a very early proof of concept, please do not use it in production yet.**
 
 ### Note about ES Modules
 
-The Node.js version of this package uses ES Modules. It can only be imported in true ESM projects, not using `require()`.
-
-The browser version also has a CommonJS build, available at `@runcitadel/sdk/browser-cjs/index.browser.cjs`.
+This package uses ES Modules. It can only be imported in projects using ESM. Trying to `require()` it will fail.
 
 
 ### Simple example

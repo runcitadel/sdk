@@ -21,11 +21,11 @@ export class ManagerSystem extends ApiConnection {
    * @returns Information about the software on the system
    */
   async info(): Promise<versionFile> {
-    return (await this.get("info")) as versionFile;
+    return await this.get<versionFile>("info");
   }
 
   async status(): Promise<systemStatus> {
-    return (await this.get("status")) as systemStatus;
+    return await this.get<systemStatus>("status");
   }
 
   async clearMemoryWarning(): Promise<void> {
@@ -33,34 +33,31 @@ export class ManagerSystem extends ApiConnection {
   }
 
   async getHiddenServiceUrl(): Promise<string> {
-    return ((await this.get("dashboard-hidden-service")) as { url: string })
-      .url;
+    return (await this.get<{ url: string }>("dashboard-hidden-service")).url;
   }
 
   async getElectrumConnectionDetails(): Promise<connectionDetails> {
-    return (await this.get("electrum-connection-details")) as connectionDetails;
+    return await this.get<connectionDetails>("electrum-connection-details");
   }
 
   async getBitcoinP2PConnectionDetails(): Promise<connectionDetails> {
-    return (await this.get(
-      "bitcoin-p2p-connection-details"
-    )) as connectionDetails;
+    return await this.get<connectionDetails>("bitcoin-p2p-connection-details");
   }
 
   async getBitcoinRPConnectionDetails(): Promise<RpcConnectionDetails> {
-    return (await this.get(
+    return await this.get<RpcConnectionDetails>(
       "bitcoin-rpc-connection-details"
-    )) as RpcConnectionDetails;
+    );
   }
 
   async getLndConnectUrls(): Promise<LndConnectionDetails> {
-    return (await this.get("ldconnect-urls")) as LndConnectionDetails;
+    return await this.get<LndConnectionDetails>("ldconnect-urls");
   }
 
   async getUpdate(): Promise<false | versionFile> {
-    const data = (await this.get("get-update-details")) as {
-      update: versionFile | string;
-    };
+    const data = await this.get<{ update: versionFile | string }>(
+      "get-update-details"
+    );
     return typeof data === "string" ? false : (data.update as versionFile);
   }
 
@@ -69,11 +66,11 @@ export class ManagerSystem extends ApiConnection {
   }
 
   async backupStatus(): Promise<backupStatus> {
-    return (await this.get("backup-status")) as backupStatus;
+    return await this.get<backupStatus>("backup-status");
   }
 
   async debugResult(): Promise<debugStatus> {
-    return (await this.get("debug-result")) as debugStatus;
+    return await this.get<debugStatus>("debug-result");
   }
 
   async debug(): Promise<void> {
@@ -89,23 +86,28 @@ export class ManagerSystem extends ApiConnection {
   }
 
   async storage(): Promise<memUsage> {
-    return (await this.get("storage")) as memUsage;
+    return await this.get<memUsage>("storage");
   }
 
   async memory(): Promise<memUsage> {
-    return (await this.get("memory")) as memUsage;
+    return await this.get<memUsage>("memory");
   }
 
   async temperature(): Promise<number> {
-    return ((await this.get("temperature")) as { temperature: number })
-      .temperature;
+    return (await this.get<{ temperature: number }>("temperature")).temperature;
   }
 
   async uptime(): Promise<number> {
-    return ((await this.get("uptime")) as { uptime: number }).uptime;
+    return (await this.get<{ uptime: number }>("uptime")).uptime;
+  }
+
+  async isCitadelOS(): Promise<boolean> {
+    return (
+      (await this.get<{ os: "Citadel" | "unknown" }>("/")).os === "Citadel"
+    );
   }
 
   public set jwt(newJwt: string) {
-      this._jwt = newJwt;
+    this._jwt = newJwt;
   }
 }

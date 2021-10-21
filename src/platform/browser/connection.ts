@@ -10,7 +10,7 @@ export abstract class ApiConnection {
     this._jwt = jwt;
   }
 
-  async #request<ResponseType>(
+  async #request<ResponseType = unknown>(
     url: string,
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
     body: unknown = {}
