@@ -4,7 +4,7 @@ import { Middleware } from "./middleware/index.js";
 export class Citadel {
   #manager;
   #middleware;
-  #_jwt = "";
+  #jwt = "";
   #password = "";
 
   constructor(baseUrl: string) {
@@ -37,7 +37,7 @@ export class Citadel {
    * @param savePw Whether to save the password for later use
    */
   public async login(password: string, savePw: boolean): Promise<void> {
-    this.#jwt = await this.#manager.auth.login(password);
+    this.jwt = await this.#manager.auth.login(password);
     if (savePw) this.#password = password;
   }
 
@@ -47,18 +47,22 @@ export class Citadel {
   public async refresh(): Promise<void> {
     try {
       await this.#manager.auth.test();
-      this.#jwt = await this.#manager.auth.refresh();
+      this.jwt = await this.#manager.auth.refresh();
     } catch {
       if (this.#password)
-        this.#jwt = await this.#manager.auth.login(this.#password);
+        this.jwt = await this.#manager.auth.login(this.#password);
       else throw new Error("Can't refresh, lost connection");
     }
   }
 
-  set #jwt(newJwt: string) {
-    this.#_jwt = newJwt;
-    this.#manager.jwt = this.#_jwt;
-    this.#middleware.jwt = this.#_jwt;
+  public get jwt(): string {
+    return this.#jwt;
+  }
+
+  public set jwt(newJwt: string) {
+    this.#jwt = newJwt;
+    this.#manager.jwt = this.#jwt;
+    this.#middleware.jwt = this.#jwt;
   }
 
   /**
@@ -97,5 +101,16 @@ export class Citadel {
   }
 }
 
-export type { Manager } from "./manager/index.js";
-export type { Middleware } from "./middleware/index.js";
+export type { Manager } from "./manager/index";
+export type { Middleware } from "./middleware/index";
+export type { ManagerApps } from "./manager/apps";
+export type { ManagerAuth } from "./manager/auth";
+export type { ManagerExternal } from "./manager/external";
+export type { ManagerSystem } from "./manager/system";
+export type { MiddlewarePages } from "./middleware/pages";
+export type { MiddlewareLND } from "./middleware/lnd";
+export type { MiddlewareBitcoin } from "./middleware/bitcoin";
+export type { LNDChannel } from "./middleware/lnd/channel";
+export type { LNDInfo } from "./middleware/lnd/info";
+export type { LNDLightning } from "./middleware/lnd/lightning";
+export type { LNDWallet } from "./middleware/lnd/wallet";
