@@ -22,10 +22,10 @@ export class LNDLightning extends ApiConnection {
   }
 
   public async addInvoice(amt: string, memo = ""): Promise<Invoice> {
-    return (await this.post("/addInvoice", {
+    return await this.post<Invoice>("/addInvoice", {
       memo,
       value: amt,
-    })) as Invoice;
+    });
   }
 
   public async forwardingHistory(
@@ -33,32 +33,32 @@ export class LNDLightning extends ApiConnection {
     endTime: number,
     indexOffset: number
   ): Promise<ForwardingHistoryResponse> {
-    return (await this.get(
+    return await this.get<ForwardingHistoryResponse>(
       `/forwardingHistory?startTime=${startTime}&endTime=${endTime}&indexOffset=${indexOffset}`
-    )) as ForwardingHistoryResponse;
+    );
   }
 
   public async parsePaymentRequest(paymentRequest: string): Promise<invoice> {
-    return (await this.get(
+    return await this.get<invoice>(
       `/invoice?paymentRequest=${paymentRequest}`
-    )) as invoice;
+    );
   }
 
   public async invoices(): Promise<Invoice[]> {
-    return (await this.get("/invoices")) as Invoice[];
+    return await this.get<Invoice[]>("/invoices");
   }
 
   public async payInvoice(
     paymentRequest: string,
     amt?: number
   ): Promise<SendResponse> {
-    return (await this.post("/payInvoice", {
+    return await this.post<SendResponse>("/payInvoice", {
       paymentRequest,
       amt,
-    })) as SendResponse;
+    });
   }
 
   public async getPayments(): Promise<Payment[]> {
-    return (await this.get("/payments")) as Payment[];
+    return await this.get<Payment[]>("/payments");
   }
 }
