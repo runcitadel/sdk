@@ -25,7 +25,7 @@ export class ManagerAuth extends ApiConnection {
    */
   public async login(password: string): Promise<string> {
     const data = await this.post("login", {
-      password
+      password,
     });
     if (typeof data !== "object" || data === null)
       throw new Error("Failed to login.");
@@ -42,14 +42,10 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string} A new JWT for the user
    */
   public async refresh(): Promise<string> {
-    const data = await this.post("refresh");
-    if (typeof data !== "object" || data === null)
+    const data = await this.post<{ jwt: string }>("refresh");
+    if (typeof data !== "object" || data === null || !data.jwt)
       throw new Error("Failed to login.");
-    if ((data as { jwt: string }).jwt) {
-      return (data as { jwt: string }).jwt;
-    } else {
-      throw new Error("Failed to login.");
-    }
+    return data.jwt;
   }
 
   /**
@@ -58,7 +54,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {user} The user's data
    */
   public async info(): Promise<user> {
-    return (await this.get("info")) as user;
+    return await this.get<user>("info");
   }
 
   /**
@@ -69,7 +65,7 @@ export class ManagerAuth extends ApiConnection {
   public async test(): Promise<boolean> {
     try {
       const data = await this.info();
-      if (data && (data as user).name) {
+      if (data && data.name) {
         return true;
       }
     } catch {
@@ -90,7 +86,7 @@ export class ManagerAuth extends ApiConnection {
   ): Promise<void> {
     await this.post("change-password", {
       password: currentPassword,
-      newPassword
+      newPassword,
     });
   }
 
@@ -100,7 +96,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {changePasswordStatus} The status of the password change
    */
   public async changePasswordStatus(): Promise<changePasswordStatus> {
-    return (await this.post("change-password/status")) as changePasswordStatus;
+    return await this.post<changePasswordStatus>("change-password/status");
   }
 
   /**
@@ -109,8 +105,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {boolean} True if the user exists
    */
   public async isRegistered(): Promise<boolean> {
-    return ((await this.post("registered")) as { registered: boolean })
-      .registered;
+    return (await this.post<{ registered: boolean }>("registered")).registered;
   }
 
   /**
@@ -122,11 +117,11 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string} A JsonWebToken for the user
    */
   public async register(password: string, seed: string[]): Promise<string> {
-    const data = (await this.post("register", {
+    const data = await this.post<{ jwt?: string }>("register", {
       seed,
       password,
-      name: "admin"
-    })) as { jwt?: string };
+      name: "admin",
+    });
     if (!data.jwt) throw new Error("Failed to register new user.");
     return data.jwt;
   }
