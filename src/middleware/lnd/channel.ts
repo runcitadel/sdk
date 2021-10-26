@@ -33,7 +33,6 @@ export type EstimateFeeResponseExtended = EstimateFeeResponse & {
   sweepAmount?: number;
 };
 
-
 export class LNDChannel extends ApiConnection {
   constructor(baseUrl: string) {
     super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}channel`);
@@ -44,7 +43,7 @@ export class LNDChannel extends ApiConnection {
   }
 
   public async list(): Promise<Channel_extended[]> {
-    return (await this.get("")) as Channel_extended[];
+    return await this.get<Channel_extended[]>("");
   }
 
   public async estimateFee(
@@ -54,9 +53,9 @@ export class LNDChannel extends ApiConnection {
   ): Promise<EstimateFeeResponseExtended> {
     if (confTarget <= 0)
       throw new TypeError("Confirmation target must be above 0");
-    return (await this.get(
+    return await this.get<EstimateFeeResponseExtended>(
       `/estimateFee?amt=${amt}&confTarget=0&sweep=${sweep}`
-    )) as EstimateFeeResponseExtended;
+    );
   }
 
   public async estimateFeeAll(
@@ -68,18 +67,16 @@ export class LNDChannel extends ApiConnection {
     normal: EstimateFeeResponseExtended;
     cheapest: EstimateFeeResponseExtended;
   }> {
-    return (await this.get(
-      `/estimateFee?amt=${amt}&confTarget=0&sweep=${sweep}`
-    )) as {
+    return await this.get<{
       fast: EstimateFeeResponseExtended;
       slow: EstimateFeeResponseExtended;
       normal: EstimateFeeResponseExtended;
       cheapest: EstimateFeeResponseExtended;
-    };
+    }>(`/estimateFee?amt=${amt}&confTarget=0&sweep=${sweep}`);
   }
 
   public async getPendingChannels(): Promise<PendingChannelsResponse> {
-    return (await this.get("/pending")) as PendingChannelsResponse;
+    return await this.get<PendingChannelsResponse>("/pending");
   }
 
   public async getPolicy(): Promise<ChannelFeeReport[]> {
@@ -93,7 +90,7 @@ export class LNDChannel extends ApiConnection {
     timeLockDelta = 144,
     global = false
   ): Promise<void> {
-    this.post("/policy", {
+    await this.post("/policy", {
       chanPoint,
       baseFeeMsat,
       feeRate,
@@ -102,17 +99,20 @@ export class LNDChannel extends ApiConnection {
     });
   }
 
-  public async closeChannel(channelPoint: string, force = false): Promise<void> {
-    this.post(`/close`, { channelPoint, force });
+  public async closeChannel(
+    channelPoint: string,
+    force = false
+  ): Promise<void> {
+    await this.post(`/close`, { channelPoint, force });
   }
 
   public async channelCount(): Promise<number> {
-    return ((await this.get("/count")) as { count: number }).count;
+    return (await this.get<{ count: number }>("/count")).count;
   }
 
   /**
    * Open a new channel
-   * 
+   *
    * @param pubKey The pubkey of the peer to open a channel with
    * @param ip The IP address of the peer to open a channel with
    * @param port The port of the peer to open a channel with
@@ -127,12 +127,14 @@ export class LNDChannel extends ApiConnection {
     amt: string | number,
     satPerByte: number | undefined
   ): Promise<string> {
-    return ((await this.post("/openChannel", {
-      pubKey,
-      ip,
-      port,
-      amt,
-      satPerByte,
-    })) as { fundingTxId: string }).fundingTxId;
+    return (
+      await this.post<{ fundingTxId: string }>("/openChannel", {
+        pubKey,
+        ip,
+        port,
+        amt,
+        satPerByte,
+      })
+    ).fundingTxId;
   }
 }
