@@ -17,10 +17,6 @@ export class LNDLightning extends ApiConnection {
     super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}lightning`);
   }
 
-  public set jwt(newJwt: string) {
-    this._jwt = newJwt;
-  }
-
   public async addInvoice(amt: string, memo = ""): Promise<Invoice> {
     return await this.post<Invoice>("/addInvoice", {
       memo,

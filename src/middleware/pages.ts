@@ -24,8 +24,4 @@ export class MiddlewarePages extends ApiConnection {
   async lightning(): Promise<LightningDetails> {
     return (await this.get("lnd")) as LightningDetails;
   }
-
-  public set jwt(newJwt: string) {
-    this._jwt = newJwt;
-  }
 }

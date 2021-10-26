@@ -106,8 +106,4 @@ export class ManagerSystem extends ApiConnection {
       (await this.get<{ os: "Citadel" | "unknown" }>("/")).os === "Citadel"
     );
   }
-
-  public set jwt(newJwt: string) {
-    this._jwt = newJwt;
-  }
 }

@@ -14,8 +14,4 @@ export class ManagerExternal extends ApiConnection {
   async price(currency = "USD"): Promise<number> {
     return (await this.get(`/price?currency=${currency}`) as Record<string, number>)[currency];
   }
-
-  public set jwt(newJwt: string) {
-      this._jwt = newJwt;
-  }
 }

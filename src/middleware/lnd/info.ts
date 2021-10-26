@@ -6,10 +6,6 @@ export class LNDInfo extends ApiConnection {
     super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}info`);
   }
 
-  public set jwt(newJwt: string) {
-    this._jwt = newJwt;
-  }
-
   public async generalInfo(): Promise<GetInfoResponse> {
     return await this.get<GetInfoResponse>("");
   }

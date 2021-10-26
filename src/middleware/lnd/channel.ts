@@ -38,10 +38,6 @@ export class LNDChannel extends ApiConnection {
     super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}channel`);
   }
 
-  public set jwt(newJwt: string) {
-    this._jwt = newJwt;
-  }
-
   public async list(): Promise<Channel_extended[]> {
     return await this.get<Channel_extended[]>("");
   }
