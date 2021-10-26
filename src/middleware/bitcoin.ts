@@ -111,8 +111,4 @@ export class MiddlewareBitcoin extends ApiConnection {
   async getTransaction(txid: string): Promise<Transaction> {
     return await this.get<Transaction>(`/txid/${txid}`);
   }
-
-  public set jwt(newJwt: string) {
-    this._jwt = newJwt;
-  }
 }
