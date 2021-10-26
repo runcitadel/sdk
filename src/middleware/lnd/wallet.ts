@@ -5,10 +5,6 @@ export class LNDWallet extends ApiConnection {
     constructor(baseUrl: string) {
       super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}wallet`);
     }
-  
-    public set jwt(newJwt: string) {
-      this._jwt = newJwt;
-    }
 
     public async onChainBalance(): Promise<WalletBalanceResponse> {
         return await this.get<WalletBalanceResponse>("/btc");
