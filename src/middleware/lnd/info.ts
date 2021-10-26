@@ -29,13 +29,15 @@ export class LNDInfo extends ApiConnection {
   }
 
   public async syncStatus(): Promise<{
-    operational: boolean;
-    unlocked: boolean;
+    percent: string;
+    knownBlockCount: number;
+    processedBlocks: number;
   }> {
-    return (await this.get("/sync")) as {
-      operational: boolean;
-      unlocked: boolean;
-    };
+    return await this.get<{
+      percent: string;
+      knownBlockCount: number;
+      processedBlocks: number;
+    }>("/sync");
   }
 
   public async version(): Promise<string> {
