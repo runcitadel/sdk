@@ -11,21 +11,21 @@ export class LNDInfo extends ApiConnection {
   }
 
   public async generalInfo(): Promise<GetInfoResponse> {
-    return (await this.get("")) as GetInfoResponse;
+    return await this.get<GetInfoResponse>("");
   }
 
   public async publicUris(): Promise<string[]> {
-    return (await this.get("/uris")) as string[];
+    return await this.get<string[]>("/uris");
   }
 
   public async getStatus(): Promise<{
     operational: boolean;
     unlocked: boolean;
   }> {
-    return (await this.get("/status")) as {
+    return await this.get<{
       operational: boolean;
       unlocked: boolean;
-    };
+    }>("/status");
   }
 
   public async syncStatus(): Promise<{
@@ -41,10 +41,10 @@ export class LNDInfo extends ApiConnection {
   }
 
   public async version(): Promise<string> {
-    return ((await this.get("/version")) as { version: string }).version;
+    return (await this.get<{ version: string }>("/version")).version;
   }
 
   public async alias(): Promise<string> {
-    return ((await this.get("/alias")) as { alias: string }).alias;
+    return (await this.get<{ alias: string }>("/alias")).alias;
   }
 }
