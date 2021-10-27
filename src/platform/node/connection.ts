@@ -1,6 +1,9 @@
-import { fetch } from "undici";
-import debug from "debug";
-const log = debug("citadel");
+import { request } from "undici";
+
+async function log(message: string) {
+  if(process.env.CITADEL_SDK_VERBOSE)
+    console.log(message);
+}
 
 export abstract class ApiConnection {
   #baseUrl: string;
@@ -35,7 +38,7 @@ export abstract class ApiConnection {
     log(
       `${method} ${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}...`
     );
-    const response = await fetch(
+    const response = await request(
       `${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}`,
       {
         headers,
@@ -44,11 +47,11 @@ export abstract class ApiConnection {
       }
     );
 
-    if (response.status !== 200) {
-      throw new Error(await response.text());
+    if (response.statusCode !== 200) {
+      throw new Error(await response.body.text());
     }
 
-    const data = await response.text();
+    const data = await response.body.json();
     let parsed: unknown;
     try {
       parsed = JSON.parse(data);

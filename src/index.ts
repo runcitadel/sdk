@@ -1,6 +1,6 @@
 import { Manager } from "./manager/index.js";
 import { Middleware } from "./middleware/index.js";
-import { fetch } from "undici";
+import { request } from "undici";
 
 export class Citadel {
   #manager;
@@ -76,7 +76,7 @@ export class Citadel {
     // Try to ping each hostname
     for (const hostname of HOSTNAMES) {
       try {
-        await fetch(`http://${hostname}`);
+        await request(`http://${hostname}`);
         return hostname;
       } catch {
         continue;
