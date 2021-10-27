@@ -76,7 +76,7 @@ export class LNDChannel extends ApiConnection {
   }
 
   public async getPolicy(): Promise<ChannelFeeReport[]> {
-    return (await this.get("/policy")) as ChannelFeeReport[];
+    return await this.get<ChannelFeeReport[]>("/policy");
   }
 
   public async setPolicy(

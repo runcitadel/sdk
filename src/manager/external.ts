@@ -8,10 +8,12 @@ export class ManagerExternal extends ApiConnection {
   /**
    * Get the current Bitcoin price in another currency
    * @param currency The three-letter code of the currency you want
-   * 
+   *
    * @returns The value as a number
    */
   async price(currency = "USD"): Promise<number> {
-    return (await this.get(`/price?currency=${currency}`) as Record<string, number>)[currency];
+    return (
+      await this.get<Record<string, number>>(`/price?currency=${currency}`)
+    )[currency];
   }
 }

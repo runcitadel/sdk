@@ -24,11 +24,11 @@ export class Middleware extends ApiConnection {
     features?: string[];
     isCitadel?: true | undefined;
   }> {
-    return (await this.get("ping")) as {
+    return await this.get<{
       version: string;
       features?: string[];
       isCitadel?: true | undefined;
-    };
+    }>("ping");
   }
 
   public async isOnline(): Promise<boolean> {

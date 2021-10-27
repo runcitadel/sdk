@@ -24,16 +24,12 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string} A JsonWebToken for the user
    */
   public async login(password: string): Promise<string> {
-    const data = await this.post("login", {
+    const data = await this.post<{ jwt?: string }>("login", {
       password,
     });
-    if (typeof data !== "object" || data === null)
+    if (typeof data !== "object" || data === null || !data.jwt)
       throw new Error("Failed to login.");
-    if ((data as { jwt: string }).jwt) {
-      return (data as { jwt: string }).jwt;
-    } else {
-      throw new Error("Failed to login.");
-    }
+    return data.jwt;
   }
 
   /**
@@ -132,7 +128,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string[]} The mnemonic seed
    */
   public async seed(): Promise<string[]> {
-    const data = (await this.post("seed")) as { seed?: string[] };
+    const data = await this.post<{ seed?: string[] }>("seed");
     if (!data.seed) throw new Error("Failed to get seed.");
     return data.seed;
   }

@@ -58,7 +58,7 @@ export class ManagerSystem extends ApiConnection {
     const data = await this.get<{ update: versionFile | string }>(
       "get-update-details"
     );
-    return typeof data === "string" ? false : (data.update as versionFile);
+    return typeof data.update === "string" ? false : data.update;
   }
 
   async startUpdate(): Promise<void> {

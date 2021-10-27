@@ -37,7 +37,7 @@ export class Manager extends ApiConnection {
      * @returns Version information about the node
      */
     public async ping(): Promise<{ version: string, features?: string[], isCitadel?: true | undefined }> {
-        return await this.get("ping") as { version: string, features?: string[], isCitadel?: true | undefined }
+        return await this.get<{ version: string, features?: string[], isCitadel?: true | undefined }>("ping");
     }
 
     /**

@@ -22,6 +22,6 @@ export class MiddlewarePages extends ApiConnection {
   }
 
   async lightning(): Promise<LightningDetails> {
-    return (await this.get("lnd")) as LightningDetails;
+    return await this.get<LightningDetails>("lnd");
   }
 }
