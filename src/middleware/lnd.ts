@@ -38,7 +38,9 @@ export class MiddlewareLND extends ApiConnection {
   }
 
   public async signMessage(message: string): Promise<string> {
-    return (await this.post<{ signature: string }>("util/sign-message", { message })).signature;
+    return (
+      await this.post<{ signature: string }>("util/sign-message", { message })
+    ).signature;
   }
 
   public get channel(): LNDChannel {

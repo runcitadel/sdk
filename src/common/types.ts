@@ -144,9 +144,9 @@ export type LndConnectionDetails = {
 export type memBreakdown = {
   id: string;
   used: number;
-}
+};
 export type memUsage = {
   total: number;
   used: number;
   breakdown: memBreakdown[];
-}
+};

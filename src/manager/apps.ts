@@ -1,7 +1,6 @@
 import { ApiConnection } from "platform/connection.js";
 import type { app } from "../common/types";
 
-
 export class ManagerApps extends ApiConnection {
   constructor(baseUrl: string) {
     super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/apps`);
@@ -9,7 +8,7 @@ export class ManagerApps extends ApiConnection {
 
   /**
    * List all apps
-   * 
+   *
    * @param installed Set this to true if you only want a list of installed apps
    * @returns A list of apps with metadata
    */
@@ -19,7 +18,7 @@ export class ManagerApps extends ApiConnection {
 
   /**
    * Install an app
-   * 
+   *
    * @param id The id of the app
    */
   async install(id: string): Promise<void> {
@@ -27,7 +26,7 @@ export class ManagerApps extends ApiConnection {
   }
   /**
    * Unnstall an app
-   * 
+   *
    * @param id The id of the app
    */
   async uninstall(id: string): Promise<void> {

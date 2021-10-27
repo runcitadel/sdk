@@ -56,26 +56,37 @@ export abstract class ApiConnection {
       throw new Error(`Received invalid data: ${data}`);
     }
 
-    if(typeof parsed === "string") {
+    if (typeof parsed === "string") {
       throw new Error(parsed);
     }
 
     return parsed as ResponseType;
   }
 
-  protected async get<ResponseType = unknown>(url: string): Promise<ResponseType> {
+  protected async get<ResponseType = unknown>(
+    url: string
+  ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url);
   }
 
-  protected async post<ResponseType = unknown>(url: string, body: unknown = {}): Promise<ResponseType> {
+  protected async post<ResponseType = unknown>(
+    url: string,
+    body: unknown = {}
+  ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url, "POST", body);
   }
 
-  protected async put<ResponseType = unknown>(url: string, body: unknown = {}): Promise<ResponseType> {
+  protected async put<ResponseType = unknown>(
+    url: string,
+    body: unknown = {}
+  ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url, "PUT", body);
   }
 
-  protected async delete<ResponseType = unknown>(url: string, body: unknown = {}): Promise<ResponseType> {
+  protected async delete<ResponseType = unknown>(
+    url: string,
+    body: unknown = {}
+  ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url, "DELETE", body);
   }
 }

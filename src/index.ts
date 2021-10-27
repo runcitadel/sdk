@@ -1,7 +1,6 @@
 import { Manager } from "./manager/index.js";
 import { Middleware } from "./middleware/index.js";
 import { fetch } from "undici";
-import { URL } from "url";
 
 export class Citadel {
   #manager;
@@ -10,8 +9,10 @@ export class Citadel {
   #password = "";
 
   constructor(baseUrl: string) {
-    const managerApi = new URL("/manager-api", baseUrl);
-    const middlewareApi = new URL("/api", baseUrl);
+    const middlewareApi = `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}api`;
+    const managerApi = `${baseUrl}${
+      baseUrl.endsWith("/") ? "" : "/"
+    }manager-api`;
     this.#manager = new Manager(managerApi.toString());
     this.#middleware = new Middleware(middlewareApi.toString());
   }

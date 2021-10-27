@@ -35,9 +35,7 @@ export class LNDLightning extends ApiConnection {
   }
 
   public async parsePaymentRequest(paymentRequest: string): Promise<invoice> {
-    return await this.get<invoice>(
-      `/invoice?paymentRequest=${paymentRequest}`
-    );
+    return await this.get<invoice>(`/invoice?paymentRequest=${paymentRequest}`);
   }
 
   public async invoices(): Promise<Invoice[]> {
