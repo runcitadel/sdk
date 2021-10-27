@@ -48,7 +48,6 @@ export class Citadel {
    */
   public async refresh(): Promise<void> {
     try {
-      await this.#manager.auth.test();
       this.jwt = await this.#manager.auth.refresh();
     } catch {
       if (this.#password)
