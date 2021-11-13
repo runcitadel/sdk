@@ -1,10 +1,5 @@
 import { request } from "undici";
 
-async function log(message: string) {
-  if(process.env.CITADEL_SDK_VERBOSE)
-    console.log(message);
-}
-
 export abstract class ApiConnection {
   #baseUrl: string;
   protected _jwt = "";
@@ -35,9 +30,15 @@ export abstract class ApiConnection {
         ...headers,
         Authorization: authHeader,
       };
-    log(
-      `${method} ${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}...`
-    );
+    if (process.env.CITADEL_SDK_VERBOSE) {
+      console.log(
+        `${method} ${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}...`
+      );
+      if (method !== "GET") {
+        console.log(`body: ${JSON.stringify(body, undefined, 2)}`);
+      }
+    }
+
     const response = await request(
       `${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}`,
       {
