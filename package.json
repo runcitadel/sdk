@@ -1,7 +1,7 @@
 {
   "name": "@runcitadel/sdk",
   "version": "0.0.1-beta.4",
-  "packageManager": "yarn@3.0.2",
+  "packageManager": "yarn@3.1.0",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
