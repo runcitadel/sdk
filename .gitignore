@@ -23,6 +23,6 @@ coverage
 !rollup.config*.js
 .rollup.*
 dist
-*.cjs
+#*.cjs
 docs
 
