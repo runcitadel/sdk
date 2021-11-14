@@ -26,7 +26,6 @@ export type PendingForceClosedChannel_extended =
 export type PendingOpenChannel_extended =
   PendingChannelsResponse_PendingOpenChannel & {
     type?: string;
-    initiator?: boolean;
   };
 
 export type EstimateFeeResponseExtended = EstimateFeeResponse & {
