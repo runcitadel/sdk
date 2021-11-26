@@ -5,7 +5,6 @@ export default class Citadel {
   #manager;
   #middleware;
   #jwt = "";
-  #password = "";
 
   constructor(baseUrl: string) {
     const middlewareApi = `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}api`;
@@ -54,22 +53,15 @@ export default class Citadel {
    * @param password The users password
    * @param savePw Whether to save the password for later use
    */
-  public async login(password: string, savePw: boolean): Promise<void> {
-    this.jwt = await this.#manager.auth.login(password);
-    if (savePw) this.#password = password;
+  public async login(password: string, totpToken: string): Promise<void> {
+    this.jwt = await this.#manager.auth.login(password, totpToken);
   }
 
   /**
    * Refresh the stored JWT
    */
   public async refresh(): Promise<void> {
-    try {
-      this.jwt = await this.#manager.auth.refresh();
-    } catch {
-      if (this.#password)
-        this.jwt = await this.#manager.auth.login(this.#password);
-      else throw new Error("Can't refresh, lost connection");
-    }
+    this.jwt = await this.#manager.auth.refresh();
   }
 
   public get jwt(): string {

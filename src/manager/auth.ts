@@ -23,9 +23,10 @@ export class ManagerAuth extends ApiConnection {
    * @param password The users password
    * @returns {string} A JsonWebToken for the user
    */
-  public async login(password: string): Promise<string> {
+  public async login(password: string, totpToken: string): Promise<string> {
     const data = await this.post<{ jwt?: string }>("login", {
       password,
+      totpToken,
     });
     if (typeof data !== "object" || data === null || !data.jwt)
       throw new Error("Failed to login.");
@@ -131,5 +132,35 @@ export class ManagerAuth extends ApiConnection {
     const data = await this.post<{ seed?: string[] }>("seed");
     if (!data.seed) throw new Error("Failed to get seed.");
     return data.seed;
+  }
+
+  /**
+   * Sets up TOTP for the user.
+   *
+   * @returns {string} The TOTP key
+   */
+  public async setupTotp(): Promise<string> {
+    return (await this.get<{ key: string }>("totp/setup")).key;
+  }
+
+  /**
+   * Actually enables TOTP by checking if a correct code is given.
+   * @param key The TOTP key
+   */
+  public async enableTotp(key: string): Promise<void> {
+    await this.post("totp/enable", {
+      authenticatorToken: key,
+    });
+  }
+
+  public async disableTotp(key: string): Promise<void> {
+    await this.post("totp/disable", {
+      authenticatorToken: key,
+    });
+  }
+
+  public async isTotpEnabled(): Promise<boolean> {
+    return (await this.get<{ totpEnabled: boolean }>("totp/status"))
+      .totpEnabled;
   }
 }
