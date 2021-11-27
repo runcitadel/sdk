@@ -1,4 +1,5 @@
 import { ApiConnection } from "platform/connection.js";
+import { joinUrl } from "../../common/utils.js";
 import {
   ForwardingHistoryResponse,
   Invoice,
@@ -14,7 +15,7 @@ type invoice = {
 
 export class LNDLightning extends ApiConnection {
   constructor(baseUrl: string) {
-    super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}lightning`);
+    super(joinUrl(baseUrl, `lightning`));
   }
 
   public async addInvoice(amt: string, memo = ""): Promise<Invoice> {

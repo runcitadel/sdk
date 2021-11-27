@@ -1,3 +1,4 @@
+import { joinUrl } from "../../common/utils.js";
 import { request } from "undici";
 
 export abstract class ApiConnection {
@@ -17,6 +18,7 @@ export abstract class ApiConnection {
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
     body: unknown = {}
   ): Promise<ResponseType> {
+    url = joinUrl(this.#baseUrl, url);
     let authHeader = "";
     if (this.jwt) authHeader = `JWT ${this.jwt}`;
     let headers: Record<string, string> = {};
@@ -31,28 +33,23 @@ export abstract class ApiConnection {
         Authorization: authHeader,
       };
     if (process.env.CITADEL_SDK_VERBOSE) {
-      console.log(
-        `${method} ${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}...`
-      );
+      console.log(`[${method}] ${url}`);
       if (method !== "GET") {
         console.log(`body: ${JSON.stringify(body, undefined, 2)}`);
       }
     }
 
-    const response = await request(
-      `${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}`,
-      {
-        headers,
-        method,
-        ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
-      }
-    );
+    const response = await request(url, {
+      headers,
+      method,
+      ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
+    });
 
     if (response.statusCode !== 200) {
       throw new Error(await response.body.text());
     }
 
-    const data = await response.body.json();
+    const data = await response.body.text();
     let parsed: unknown;
     try {
       parsed = JSON.parse(data);

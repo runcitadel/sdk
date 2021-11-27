@@ -1,9 +1,10 @@
 import { ApiConnection } from "platform/connection.js";
+import { joinUrl } from "../common/utils.js";
 import type { app } from "../common/types";
 
 export class ManagerApps extends ApiConnection {
   constructor(baseUrl: string) {
-    super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/apps`);
+    super(joinUrl(baseUrl, "v1/apps"));
   }
 
   /**

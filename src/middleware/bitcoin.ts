@@ -1,4 +1,5 @@
 import { ApiConnection } from "platform/connection.js";
+import { joinUrl } from "../common/utils.js";
 import {
   ChainInfo,
   MempoolInfo,
@@ -62,7 +63,7 @@ export type Transaction = {
 
 export class MiddlewareBitcoin extends ApiConnection {
   constructor(baseUrl: string) {
-    super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v2/bitcoin/info`);
+    super(joinUrl(baseUrl, `v2/bitcoin/info`));
   }
 
   async mempool(): Promise<MempoolInfo> {

@@ -4,6 +4,7 @@ import { LNDChannel } from "./lnd/channel.js";
 import { LNDInfo } from "./lnd/info.js";
 import { LNDLightning } from "./lnd/lightning.js";
 import { LNDWallet } from "./lnd/wallet.js";
+import { joinUrl } from "../common/utils.js";
 
 export class MiddlewareLND extends ApiConnection {
   #channel: LNDChannel;
@@ -11,19 +12,11 @@ export class MiddlewareLND extends ApiConnection {
   #lightning: LNDLightning;
   #wallet: LNDWallet;
   constructor(baseUrl: string) {
-    super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`);
-    this.#channel = new LNDChannel(
-      `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`
-    );
-    this.#info = new LNDInfo(
-      `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`
-    );
-    this.#lightning = new LNDLightning(
-      `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`
-    );
-    this.#wallet = new LNDWallet(
-      `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}v1/lnd`
-    );
+    super(joinUrl(baseUrl, `v1/lnd`));
+    this.#channel = new LNDChannel(joinUrl(baseUrl, `v1/lnd`));
+    this.#info = new LNDInfo(joinUrl(baseUrl, `v1/lnd`));
+    this.#lightning = new LNDLightning(joinUrl(baseUrl, `v1/lnd`));
+    this.#wallet = new LNDWallet(joinUrl(baseUrl, `v1/lnd`));
   }
 
   public set jwt(newJwt: string) {

@@ -1,4 +1,5 @@
 import { ApiConnection } from "platform/connection.js";
+import { joinUrl } from "../../common/utils.js";
 import {
   ChannelBalanceResponse,
   WalletBalanceResponse,
@@ -6,7 +7,7 @@ import {
 
 export class LNDWallet extends ApiConnection {
   constructor(baseUrl: string) {
-    super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}wallet`);
+    super(joinUrl(baseUrl, `wallet`));
   }
 
   public async onChainBalance(): Promise<WalletBalanceResponse> {

@@ -1,3 +1,5 @@
+import { joinUrl } from "../../common/utils.js";
+
 export abstract class ApiConnection {
   #baseUrl: string;
   protected _jwt = "";
@@ -15,6 +17,7 @@ export abstract class ApiConnection {
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
     body: unknown = {}
   ): Promise<ResponseType> {
+    url = joinUrl(this.#baseUrl, url);
     let authHeader = "";
     if (this.jwt) authHeader = `JWT ${this.jwt}`;
     let headers: Record<string, string> = {};
@@ -28,14 +31,12 @@ export abstract class ApiConnection {
         ...headers,
         Authorization: authHeader,
       };
-    const response = await fetch(
-      `${this.#baseUrl}${url.startsWith("/") ? url : "/" + url}`,
-      {
-        headers,
-        method,
-        ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
-      }
-    );
+
+    const response = await fetch(url, {
+      headers,
+      method,
+      ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
+    });
 
     if (response.status !== 200) {
       throw new Error(await response.text());

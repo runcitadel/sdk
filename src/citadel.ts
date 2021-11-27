@@ -1,5 +1,6 @@
 import { Manager } from "./manager/index.js";
 import { Middleware } from "./middleware/index.js";
+import { joinUrl } from "./common/utils.js";
 
 export default class Citadel {
   #manager;
@@ -7,10 +8,8 @@ export default class Citadel {
   #jwt = "";
 
   constructor(baseUrl: string) {
-    const middlewareApi = `${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}api`;
-    const managerApi = `${baseUrl}${
-      baseUrl.endsWith("/") ? "" : "/"
-    }manager-api`;
+    const middlewareApi = joinUrl(baseUrl, "api");
+    const managerApi = joinUrl(baseUrl, "manager-api");
     this.#manager = new Manager(managerApi.toString());
     this.#middleware = new Middleware(middlewareApi.toString());
   }

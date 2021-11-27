@@ -6,9 +6,7 @@ export class Citadel extends BaseCitadel {
    * @returns The discovered node or false if none found
    */
   public static async discover(): Promise<string | false> {
-    const HOSTNAMES = ["citadel.local", "citadel"];
-    // Try to ping each hostname
-    for (const hostname of HOSTNAMES) {
+    for (const hostname of ["citadel.local", "citadel"]) {
       try {
         await fetch(`http://${hostname}`);
         return hostname;

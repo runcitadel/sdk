@@ -1,4 +1,5 @@
 import { ApiConnection } from "platform/connection.js";
+import { joinUrl } from "../../common/utils.js";
 import {
   Channel,
   PendingChannelsResponse_WaitingCloseChannel,
@@ -34,7 +35,7 @@ export type EstimateFeeResponseExtended = EstimateFeeResponse & {
 
 export class LNDChannel extends ApiConnection {
   constructor(baseUrl: string) {
-    super(`${baseUrl}${baseUrl.endsWith("/") ? "" : "/"}channel`);
+    super(joinUrl(baseUrl, `channel`));
   }
 
   public async list(): Promise<Channel_extended[]> {
