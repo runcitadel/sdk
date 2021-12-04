@@ -1,6 +1,6 @@
 .*
 src
-index.js
+/index.js
 yarn.lock
 tsconfig.json
 yarn.lock
