@@ -31,6 +31,10 @@ export abstract class ApiConnection {
         ...headers,
         Authorization: authHeader,
       };
+    console.log(`[${method}] ${url}`);
+    if (method !== "GET") {
+      console.log(`body: ${JSON.stringify(body, undefined, 2)}`);
+    }
 
     const response = await fetch(url, {
       headers,
