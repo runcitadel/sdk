@@ -103,7 +103,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {boolean} True if the user exists
    */
   public async isRegistered(): Promise<boolean> {
-    return (await this.post<{ registered: boolean }>("registered")).registered;
+    return (await this.get<{ registered: boolean }>("registered")).registered;
   }
 
   /**
