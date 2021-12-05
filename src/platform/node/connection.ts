@@ -16,28 +16,29 @@ export abstract class ApiConnection {
   async #request<ResponseType = unknown>(
     url: string,
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
-    body: unknown = {}
+    body: unknown = {},
+    auth = true
   ): Promise<ResponseType> {
     url = joinUrl(this.#baseUrl, url);
     let authHeader = "";
-    if (this.jwt) authHeader = `JWT ${this.jwt}`;
+    if (this._jwt) authHeader = `JWT ${this._jwt}`;
     let headers: Record<string, string> = {};
     if (method !== "GET") {
       headers = {
         "Content-type": "application/json",
       };
     }
-    if (authHeader)
+    if (authHeader && auth)
       headers = {
         ...headers,
         Authorization: authHeader,
       };
-    if (process.env.CITADEL_SDK_VERBOSE || true) {
-      console.log(`[${method}] ${url}`);
-      if (method !== "GET") {
-        console.log(`body: ${JSON.stringify(body, undefined, 2)}`);
+      if (process.env.CITADEL_SDK_VERBOSE || true) {
+        console.log(`[${method}] ${url}`);
+        if (method !== "GET") {
+          console.log(`body: ${JSON.stringify(body, undefined, 2)}`);
+        }
       }
-    }
 
     const response = await request(url, {
       headers,
@@ -65,29 +66,33 @@ export abstract class ApiConnection {
   }
 
   protected async get<ResponseType = unknown>(
-    url: string
+    url: string,
+    auth = true,
   ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url);
+    return await this.#request<ResponseType>(url, "GET", undefined, auth);
   }
 
   protected async post<ResponseType = unknown>(
     url: string,
-    body: unknown = {}
+    body: unknown = {},
+    auth = true,
   ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url, "POST", body);
+    return await this.#request<ResponseType>(url, "POST", body, auth);
   }
 
   protected async put<ResponseType = unknown>(
     url: string,
-    body: unknown = {}
+    body: unknown = {},
+    auth = true,
   ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url, "PUT", body);
+    return await this.#request<ResponseType>(url, "PUT", body, auth);
   }
 
   protected async delete<ResponseType = unknown>(
     url: string,
-    body: unknown = {}
+    body: unknown = {},
+    auth = true,
   ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url, "DELETE", body);
+    return await this.#request<ResponseType>(url, "DELETE", body, auth);
   }
 }
