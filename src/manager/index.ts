@@ -5,16 +5,16 @@ import { ManagerExternal } from "./external.js";
 import { ManagerSystem } from "./system.js";
 
 export class Manager extends ApiConnection {
-  #auth: InstanceType<typeof ManagerAuth>;
-  #apps: InstanceType<typeof ManagerApps>;
-  #external: InstanceType<typeof ManagerExternal>;
-  #system: InstanceType<typeof ManagerSystem>;
+  readonly auth: InstanceType<typeof ManagerAuth>;
+  readonly apps: InstanceType<typeof ManagerApps>;
+  readonly external: InstanceType<typeof ManagerExternal>;
+  readonly system: InstanceType<typeof ManagerSystem>;
   constructor(baseUrl: string) {
     super(baseUrl);
-    this.#auth = new ManagerAuth(baseUrl);
-    this.#apps = new ManagerApps(baseUrl);
-    this.#external = new ManagerExternal(baseUrl);
-    this.#system = new ManagerSystem(baseUrl);
+    this.auth = new ManagerAuth(baseUrl);
+    this.apps = new ManagerApps(baseUrl);
+    this.external = new ManagerExternal(baseUrl);
+    this.system = new ManagerSystem(baseUrl);
   }
 
   /**
@@ -62,27 +62,13 @@ export class Manager extends ApiConnection {
     }
   }
 
-  public get auth(): InstanceType<typeof ManagerAuth> {
-    return this.#auth;
-  }
-
-  public get apps(): InstanceType<typeof ManagerApps> {
-    return this.#apps;
-  }
-
-  public get external(): InstanceType<typeof ManagerExternal> {
-    return this.#external;
-  }
-
-  public get system(): InstanceType<typeof ManagerSystem> {
-    return this.#system;
-  }
-
   public set jwt(jwt: string) {
-    this.#auth.jwt = jwt;
-    this.#apps.jwt = jwt;
-    this.#external.jwt = jwt;
-    this.#system.jwt = jwt;
-    this._jwt = jwt;
+    // This is ugly, but makes the final bundle smaller
+    this.auth.jwt =
+      this.apps.jwt =
+      this.external.jwt =
+      this.system.jwt =
+      this._jwt =
+        jwt;
   }
 }

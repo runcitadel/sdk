@@ -3,15 +3,15 @@ import { Middleware } from "./middleware/index.js";
 import { joinUrl } from "./common/utils.js";
 
 export default class Citadel {
-  #manager;
-  #middleware;
+  readonly manager;
+  readonly middleware;
   #jwt = "";
 
   constructor(baseUrl: string) {
     const middlewareApi = joinUrl(baseUrl, "api");
     const managerApi = joinUrl(baseUrl, "manager-api");
-    this.#manager = new Manager(managerApi.toString());
-    this.#middleware = new Middleware(middlewareApi.toString());
+    this.manager = new Manager(managerApi.toString());
+    this.middleware = new Middleware(middlewareApi.toString());
   }
 
   /**
@@ -26,8 +26,8 @@ export default class Citadel {
       unlocked: boolean;
     };
   }> {
-    const manager = await this.#manager.isOnline();
-    const middleware = await this.#middleware.isOnline();
+    const manager = await this.manager.isOnline();
+    const middleware = await this.middleware.isOnline();
     let lnd: {
       operational: boolean;
       unlocked: boolean;
@@ -36,7 +36,7 @@ export default class Citadel {
       unlocked: false,
     };
     try {
-      lnd = await this.#middleware.lnd.info.getStatus();
+      lnd = await this.middleware.lnd.info.getStatus();
     } catch {}
 
     return {
@@ -53,14 +53,14 @@ export default class Citadel {
    * @param savePw Whether to save the password for later use
    */
   public async login(password: string, totpToken: string): Promise<void> {
-    this.jwt = await this.#manager.auth.login(password, totpToken);
+    this.jwt = await this.manager.auth.login(password, totpToken);
   }
 
   /**
    * Refresh the stored JWT
    */
   public async refresh(): Promise<void> {
-    this.jwt = await this.#manager.auth.refresh();
+    this.jwt = await this.manager.auth.refresh();
   }
 
   public get jwt(): string {
@@ -68,9 +68,7 @@ export default class Citadel {
   }
 
   public set jwt(newJwt: string) {
-    this.#jwt = newJwt;
-    this.#manager.jwt = this.#jwt;
-    this.#middleware.jwt = this.#jwt;
+    this.#jwt = this.manager.jwt = this.middleware.jwt = newJwt;
   }
 
   /**
@@ -79,14 +77,6 @@ export default class Citadel {
    * @returns {boolean} True if the node is using Citadel
    */
   public async isCitadel(): Promise<boolean> {
-    return await this.#manager.isCitadel();
-  }
-
-  public get manager(): InstanceType<typeof Manager> {
-    return this.#manager;
-  }
-
-  public get middleware(): InstanceType<typeof Middleware> {
-    return this.#middleware;
+    return await this.manager.isCitadel();
   }
 }

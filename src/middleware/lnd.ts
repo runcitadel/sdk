@@ -7,23 +7,22 @@ import { LNDWallet } from "./lnd/wallet.js";
 import { joinUrl } from "../common/utils.js";
 
 export class MiddlewareLND extends ApiConnection {
-  #channel: LNDChannel;
-  #info: LNDInfo;
-  #lightning: LNDLightning;
-  #wallet: LNDWallet;
+  readonly channel: LNDChannel;
+  readonly info: LNDInfo;
+  readonly lightning: LNDLightning;
+  readonly wallet: LNDWallet;
   constructor(baseUrl: string) {
     super(joinUrl(baseUrl, `v1/lnd`));
-    this.#channel = new LNDChannel(joinUrl(baseUrl, `v1/lnd`));
-    this.#info = new LNDInfo(joinUrl(baseUrl, `v1/lnd`));
-    this.#lightning = new LNDLightning(joinUrl(baseUrl, `v1/lnd`));
-    this.#wallet = new LNDWallet(joinUrl(baseUrl, `v1/lnd`));
+    const url = joinUrl(baseUrl, `v1/lnd`);
+    this.channel = new LNDChannel(url);
+    this.info = new LNDInfo(url);
+    this.lightning = new LNDLightning(url);
+    this.wallet = new LNDWallet(url);
   }
 
   public set jwt(newJwt: string) {
-    this._jwt = newJwt;
-    this.#channel.jwt = newJwt;
-    this.#info.jwt = newJwt;
-    this.#lightning.jwt = newJwt;
+    // This is ugly, but makes the final bundle smaller
+    this._jwt = this.channel.jwt = this.info.jwt = this.lightning.jwt = newJwt;
   }
 
   public async address(): Promise<NewAddressResponse> {
@@ -34,21 +33,5 @@ export class MiddlewareLND extends ApiConnection {
     return (
       await this.post<{ signature: string }>("util/sign-message", { message })
     ).signature;
-  }
-
-  public get channel(): LNDChannel {
-    return this.#channel;
-  }
-
-  public get info(): LNDInfo {
-    return this.#info;
-  }
-
-  public get lightning(): LNDLightning {
-    return this.#lightning;
-  }
-
-  public get wallet(): LNDWallet {
-    return this.#wallet;
   }
 }
