@@ -33,12 +33,12 @@ export abstract class ApiConnection {
         ...headers,
         Authorization: authHeader,
       };
-      if (process.env.CITADEL_SDK_VERBOSE || true) {
-        console.log(`[${method}] ${url}`);
-        if (method !== "GET") {
-          console.log(`body: ${JSON.stringify(body, undefined, 2)}`);
-        }
+    if (process.env.CITADEL_SDK_VERBOSE || true) {
+      console.log(`[${method}] ${url}`);
+      if (method !== "GET") {
+        console.log(`body: ${JSON.stringify(body, undefined, 2)}`);
       }
+    }
 
     const response = await request(url, {
       headers,
@@ -67,7 +67,7 @@ export abstract class ApiConnection {
 
   protected async get<ResponseType = unknown>(
     url: string,
-    auth = true,
+    auth = true
   ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url, "GET", undefined, auth);
   }
@@ -75,7 +75,7 @@ export abstract class ApiConnection {
   protected async post<ResponseType = unknown>(
     url: string,
     body: unknown = {},
-    auth = true,
+    auth = true
   ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url, "POST", body, auth);
   }
@@ -83,7 +83,7 @@ export abstract class ApiConnection {
   protected async put<ResponseType = unknown>(
     url: string,
     body: unknown = {},
-    auth = true,
+    auth = true
   ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url, "PUT", body, auth);
   }
@@ -91,7 +91,7 @@ export abstract class ApiConnection {
   protected async delete<ResponseType = unknown>(
     url: string,
     body: unknown = {},
-    auth = true,
+    auth = true
   ): Promise<ResponseType> {
     return await this.#request<ResponseType>(url, "DELETE", body, auth);
   }
