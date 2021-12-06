@@ -1,18 +1,14 @@
 import { joinUrl } from "../../common/utils.js";
-
-export abstract class ApiConnection {
+import {ApiConnection as BaseClass} from "../../common/connection.js";
+export abstract class ApiConnection extends BaseClass {
   #baseUrl: string;
-  protected _jwt = "";
 
   constructor(baseUrl: string) {
+    super();
     this.#baseUrl = baseUrl;
   }
 
-  public set jwt(jwt: string) {
-    this._jwt = jwt;
-  }
-
-  async #request<ResponseType = unknown>(
+  protected async _request<ResponseType = unknown>(
     url: string,
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
     body: unknown = {},
@@ -60,36 +56,5 @@ export abstract class ApiConnection {
     }
 
     return parsed as ResponseType;
-  }
-
-  protected async get<ResponseType = unknown>(
-    url: string,
-    auth = true
-  ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url, "GET", undefined, auth);
-  }
-
-  protected async post<ResponseType = unknown>(
-    url: string,
-    body: unknown = {},
-    auth = true
-  ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url, "POST", body, auth);
-  }
-
-  protected async put<ResponseType = unknown>(
-    url: string,
-    body: unknown = {},
-    auth = true
-  ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url, "PUT", body, auth);
-  }
-
-  protected async delete<ResponseType = unknown>(
-    url: string,
-    body: unknown = {},
-    auth = true
-  ): Promise<ResponseType> {
-    return await this.#request<ResponseType>(url, "DELETE", body, auth);
   }
 }
