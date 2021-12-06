@@ -14,6 +14,7 @@ export default {
   plugins: [
     typescript({
       declaration: true,
+      target: "esnext",
     }),
     nodeResolve(),
     commonjs(),

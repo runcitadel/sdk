@@ -244,11 +244,9 @@ __metadata:
     "@rollup/plugin-commonjs": ^21.0.1
     "@rollup/plugin-node-resolve": ^13.0.6
     "@rollup/plugin-typescript": ^8.3.0
-    "@types/debug": ^4
     "@types/node": ^16.11.11
     "@typescript-eslint/eslint-plugin": ^5.5.0
     "@typescript-eslint/parser": ^5.5.0
-    debug: ^4.3.3
     eslint: ^8.4.0
     npm-check-updates: ^12.0.2
     prettier: ^2.5.1
@@ -284,15 +282,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/debug@npm:^4":
-  version: 4.1.7
-  resolution: "@types/debug@npm:4.1.7"
-  dependencies:
-    "@types/ms": "*"
-  checksum: 0a7b89d8ed72526858f0b61c6fd81f477853e8c4415bb97f48b1b5545248d2ae389931680b94b393b993a7cfe893537a200647d93defe6d87159b96812305adc
-  languageName: node
-  linkType: hard
-
 "@types/estree@npm:*":
   version: 0.0.50
   resolution: "@types/estree@npm:0.0.50"
@@ -320,13 +309,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: b5f8aa592cc21c16d99e69aec0976f12b893b055e4456d90148a610a6b6088e297b2ba5f38f8c8280cef006cfd8f9ec99e069905020882619dc5fc8aa46f5f27
-  languageName: node
-  linkType: hard
-
-"@types/ms@npm:*":
-  version: 0.7.31
-  resolution: "@types/ms@npm:0.7.31"
-  checksum: daadd354aedde024cce6f5aa873fefe7b71b22cd0e28632a69e8b677aeb48ae8caa1c60e5919bb781df040d116b01cb4316335167a3fc0ef6a63fa3614c0f6da
   languageName: node
   linkType: hard
 
@@ -913,7 +895,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3":
+"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2":
   version: 4.3.3
   resolution: "debug@npm:4.3.3"
   dependencies:

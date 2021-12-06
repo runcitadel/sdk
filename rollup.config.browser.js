@@ -12,8 +12,11 @@ export default {
   plugins: [
     typescript({
       declaration: true,
+      target: "esnext",
       tsconfig: "tsconfig.browser.json"
     }),
-    terser()
+    terser({
+      ecma: 2020
+    })
   ],
 };
