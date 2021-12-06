@@ -31,7 +31,7 @@ export type app = {
   support: string;
   /** The port the app's web UI uses */
   port: number;
-  /** A list of links to app promotional images, if no domain is provided, https://getumbrel.github.io/umbrel-apps-gallery/${app.id}/ will be put in front of the path */
+  /** A list of links to app promotional images, if no domain is provided, https://runcitadel.github.io/old-apps-gallery/${app.id}/ will be put in front of the path */
   gallery: string[];
   /** The path of the app the open button should open */
   path: string;
@@ -41,19 +41,6 @@ export type app = {
   hiddenService?: string;
   /** Automatically added */
   installed?: boolean;
-};
-/** A user.json file on Umbrel. Some data may automatically be added and not actually in the file */
-export type user = {
-  /** The user's name */
-  name: string;
-  /** The users password, hashed by bcrypt */
-  password?: string;
-  /** The users password in plain text, only added at runtime, never stored in a file */
-  plainTextPassword?: string;
-  /** The users mnemoic LND seed */
-  seed?: string | Buffer | ArrayBuffer;
-  /** The list of IDs of installed apps */
-  installedApps?: string[];
 };
 type BuildPowersOf2LengthArrays<
   N extends number,

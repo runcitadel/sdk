@@ -5,30 +5,16 @@ import { ManagerExternal } from "./external.js";
 import { ManagerSystem } from "./system.js";
 
 export class Manager extends ApiConnection {
-  readonly auth: InstanceType<typeof ManagerAuth>;
-  readonly apps: InstanceType<typeof ManagerApps>;
-  readonly external: InstanceType<typeof ManagerExternal>;
-  readonly system: InstanceType<typeof ManagerSystem>;
+  readonly auth: ManagerAuth;
+  readonly apps: ManagerApps;
+  readonly external: ManagerExternal;
+  readonly system: ManagerSystem;
   constructor(baseUrl: string) {
     super(baseUrl);
     this.auth = new ManagerAuth(baseUrl);
     this.apps = new ManagerApps(baseUrl);
     this.external = new ManagerExternal(baseUrl);
     this.system = new ManagerSystem(baseUrl);
-  }
-
-  /**
-   * Check if a node actually uses Citadel (not Umbrel)
-   *
-   * @returns {boolean} True if the node is using Citadel
-   */
-  public async isCitadel(): Promise<boolean> {
-    try {
-      const data = await this.ping();
-      return data.isCitadel || false;
-    } catch {
-      return false;
-    }
   }
 
   /**

@@ -27,8 +27,5 @@ console.log(await citadel.isOnline());
 console.log("Logging in...");
 await citadel.login("password123!", true);
 console.log("Testing connection...");
-await citadel.manager.auth.test();
-console.log("Checking Citadel/Umbrel...");
-console.log(await citadel.manager.isCitadel() ? "Citadel" : "Umbrel");
-// Umbrel is not really supported
+await citadel.manager.auth.test();d
 ```

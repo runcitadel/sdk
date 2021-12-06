@@ -70,13 +70,4 @@ export default class Citadel {
   public set jwt(newJwt: string) {
     this.#jwt = this.manager.jwt = this.middleware.jwt = newJwt;
   }
-
-  /**
-   * Check if a node actually uses Citadel (not Umbrel)
-   *
-   * @returns {boolean} True if the node is using Citadel
-   */
-  public async isCitadel(): Promise<boolean> {
-    return await this.manager.isCitadel();
-  }
 }
