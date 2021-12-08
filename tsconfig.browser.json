@@ -23,7 +23,6 @@
         "src"
     ],
     "exclude": [
-        "src/platform/node",
-        "src/index.ts"
+        "src/platform/node"
     ]
 }
