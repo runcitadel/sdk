@@ -25,7 +25,7 @@ export default [
     input: "src/useCitadel.ts",
     output: [
       {
-        file: "browser/react.js",
+        file: "browser/useCitadel.js",
         format: "esm",
       },
     ],
