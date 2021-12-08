@@ -22,7 +22,6 @@
         "src"
     ],
     "exclude": [
-        "src/platform/browser",
-        "src/index.browser.ts"
+        "src/platform/browser"
     ]
 }
