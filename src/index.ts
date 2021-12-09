@@ -1,4 +1,4 @@
-import Citadel from "platform/citadel.js";
+import Citadel from "platform/citadel";
 
 export type { Manager } from "./manager/index";
 export type { Middleware } from "./middleware/index";

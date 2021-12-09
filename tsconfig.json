@@ -16,7 +16,13 @@
         "paths": {
             "platform/*": ["src/platform/node/*"]
         },
-        "declarationDir": "dist"
+        "declarationDir": "dist",
+        "plugins": [
+            {
+                "transform": "@zerollup/ts-transform-paths",
+                "exclude": ["*"]
+            }
+        ],
     },
     "include": [
         "src"

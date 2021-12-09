@@ -248,6 +248,7 @@ __metadata:
     "@types/react": ^17.0.37
     "@typescript-eslint/eslint-plugin": ^5.5.0
     "@typescript-eslint/parser": ^5.5.0
+    "@zerollup/ts-transform-paths": ^1.7.18
     eslint: ^8.4.0
     npm-check-updates: ^12.0.2
     prettier: ^2.5.1
@@ -255,6 +256,7 @@ __metadata:
     rollup: ^2.60.2
     rollup-plugin-terser: ^7.0.2
     tslib: ^2.3.1
+    ttypescript: ^1.5.13
     typedoc: ^0.22.10
     typescript: ^4.5.2
     undici: ^4.11.0
@@ -464,6 +466,28 @@ __metadata:
     "@typescript-eslint/types": 5.5.0
     eslint-visitor-keys: ^3.0.0
   checksum: 490be847c58d7159d2d5e0d0686ce4fdd80c61b085caba58d4cba04c4905a56e31c375db674e331fdf7ed96aa16a98f6f7471d656f978799b172bcdb62ca742b
+  languageName: node
+  linkType: hard
+
+"@zerollup/ts-helpers@npm:^1.7.18":
+  version: 1.7.18
+  resolution: "@zerollup/ts-helpers@npm:1.7.18"
+  dependencies:
+    resolve: ^1.12.0
+  peerDependencies:
+    typescript: ">=3.7.2"
+  checksum: 6ad5cc350139e28866ecff6138b38771a385b8f6c66af07bfff5f7a6d54a9071c06cdd43e0ae0e71157cce2815e6207c0ce15a28ef862d87fe2ad8381b0465dd
+  languageName: node
+  linkType: hard
+
+"@zerollup/ts-transform-paths@npm:^1.7.18":
+  version: 1.7.18
+  resolution: "@zerollup/ts-transform-paths@npm:1.7.18"
+  dependencies:
+    "@zerollup/ts-helpers": ^1.7.18
+  peerDependencies:
+    typescript: ">=3.7.2"
+  checksum: 2a3b258222c954e6cbcb85fdbb8fe0a8781128015951d352a42fe4b59379b7051397592c9be0dd96d15fc8c6f2916b2805cd85adff93aaa3b9346beaf144a0dd
   languageName: node
   linkType: hard
 
@@ -2945,7 +2969,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"resolve@^1.17.0, resolve@^1.19.0":
+"resolve@^1.17.0, resolve@^1.19.0, resolve@npm:>=1.9.0, resolve@npm:^1.12.0":
   version: 1.20.0
   resolution: "resolve@npm:1.20.0"
   dependencies:
@@ -2955,7 +2979,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>":
+"resolve@patch:resolve@>=1.9.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>":
   version: 1.20.0
   resolution: "resolve@patch:resolve@npm%3A1.20.0#~builtin<compat/resolve>::version=1.20.0&hash=07638b"
   dependencies:
@@ -3385,6 +3409,21 @@ fsevents@~2.3.2:
   peerDependencies:
     typescript: ">=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta"
   checksum: 1843f4c1b2e0f975e08c4c21caa4af4f7f65a12ac1b81b3b8489366826259323feb3fc7a243123453d2d1a02314205a7634e048d4a8009921da19f99755cdc48
+  languageName: node
+  linkType: hard
+
+"ttypescript@npm:^1.5.13":
+  version: 1.5.13
+  resolution: "ttypescript@npm:1.5.13"
+  dependencies:
+    resolve: ">=1.9.0"
+  peerDependencies:
+    ts-node: ">=8.0.2"
+    typescript: ">=3.2.2"
+  bin:
+    ttsc: bin/tsc
+    ttsserver: bin/tsserver
+  checksum: bd97f058520ebd6183446b2100bfc714c400455e2195c3711d00c3407521d99098a4a204f16200c14a115cd78a5005d4a790bf7fb73a1b21a513573291a9c1d0
   languageName: node
   linkType: hard
 

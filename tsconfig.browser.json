@@ -17,7 +17,14 @@
         "paths": {
             "platform/*": ["src/platform/browser/*"]
         },
-        "declarationDir": "browser"
+        "declarationDir": "browser",
+
+        "plugins": [
+            {
+                "transform": "@zerollup/ts-transform-paths",
+                "exclude": ["*"]
+            }
+        ]
     },
     "include": [
         "src"
