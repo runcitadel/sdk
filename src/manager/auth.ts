@@ -127,10 +127,13 @@ export class ManagerAuth extends ApiConnection {
   /**
    * Retrieve the users mnemonic seed.
    *
+   * @param password The users password as plain text
    * @returns {string[]} The mnemonic seed
    */
-  public async seed(): Promise<string[]> {
-    const data = await this.post<{ seed?: string[] }>("seed");
+  public async seed(password: string): Promise<string[]> {
+    const data = await this.post<{ seed?: string[] }>("seed", {
+      password,
+    });
     if (!data.seed) throw new Error("Failed to get seed.");
     return data.seed;
   }
