@@ -46,17 +46,6 @@ export class LNDChannel extends ApiConnection {
     amt: number | string,
     confTarget: number,
     sweep = false
-  ): Promise<EstimateFeeResponseExtended> {
-    if (confTarget <= 0)
-      throw new TypeError("Confirmation target must be above 0");
-    return await this.get<EstimateFeeResponseExtended>(
-      `/estimateFee?amt=${amt}&confTarget=0&sweep=${sweep}`
-    );
-  }
-
-  public async estimateFeeAll(
-    amt: number | string,
-    sweep = false
   ): Promise<{
     fast: EstimateFeeResponseExtended;
     slow: EstimateFeeResponseExtended;
@@ -68,7 +57,7 @@ export class LNDChannel extends ApiConnection {
       slow: EstimateFeeResponseExtended;
       normal: EstimateFeeResponseExtended;
       cheapest: EstimateFeeResponseExtended;
-    }>(`/estimateFee?amt=${amt}&confTarget=0&sweep=${sweep}`);
+    }>(`/estimateFee?amt=${amt}&confTarget=${confTarget}&sweep=${sweep}`);
   }
 
   public async getPendingChannels(): Promise<PendingChannelsResponse> {
