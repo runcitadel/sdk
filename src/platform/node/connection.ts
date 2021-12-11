@@ -3,11 +3,11 @@ import { request } from "undici";
 import {ApiConnection as BaseClass} from "../../common/connection.js";
 
 export abstract class ApiConnection extends BaseClass {
-  #baseUrl: string;
+  private readonly _baseUrl: string;
 
   constructor(baseUrl: string) {
     super();
-    this.#baseUrl = baseUrl;
+    this._baseUrl = baseUrl;
   }
 
   async _request<ResponseType = unknown>(
@@ -16,7 +16,7 @@ export abstract class ApiConnection extends BaseClass {
     body: unknown = {},
     auth = true
   ): Promise<ResponseType> {
-    url = joinUrl(this.#baseUrl, url);
+    url = joinUrl(this._baseUrl, url);
     let authHeader = "";
     if (this._jwt) authHeader = `JWT ${this._jwt}`;
     let headers: Record<string, string> = {};

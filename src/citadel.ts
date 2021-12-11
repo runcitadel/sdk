@@ -5,7 +5,7 @@ import { joinUrl } from "./common/utils.js";
 export default class Citadel {
   readonly manager;
   readonly middleware;
-  #jwt = "";
+  private _jwt = "";
 
   constructor(baseUrl: string) {
     const middlewareApi = joinUrl(baseUrl, "api");
@@ -64,10 +64,10 @@ export default class Citadel {
   }
 
   public get jwt(): string {
-    return this.#jwt;
+    return this._jwt;
   }
 
   public set jwt(newJwt: string) {
-    this.#jwt = this.manager.jwt = this.middleware.jwt = newJwt;
+    this._jwt = this.manager.jwt = this.middleware.jwt = newJwt;
   }
 }
