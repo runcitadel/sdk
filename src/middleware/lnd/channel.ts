@@ -96,7 +96,7 @@ export class LNDChannel extends ApiConnection {
     channelPoint: string,
     force = false
   ): Promise<void> {
-    await this.post(`/close`, { channelPoint, force });
+    await this.delete(`/close`, { channelPoint, force });
   }
 
   public async channelCount(): Promise<number> {
