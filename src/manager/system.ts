@@ -8,6 +8,7 @@ import type {
   memUsage,
   RpcConnectionDetails,
   systemStatus,
+  updateStatus,
   versionFile,
 } from "../common/types";
 
@@ -64,6 +65,10 @@ export class ManagerSystem extends ApiConnection {
 
   async startUpdate(): Promise<void> {
     await this.post("update");
+  }
+
+  async updateStatus(): Promise<updateStatus> {
+    return await this.get<updateStatus>("update-status");
   }
 
   async backupStatus(): Promise<backupStatus> {
