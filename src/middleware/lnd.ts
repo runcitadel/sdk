@@ -5,12 +5,14 @@ import { LNDInfo } from "./lnd/info.js";
 import { LNDLightning } from "./lnd/lightning.js";
 import { LNDWallet } from "./lnd/wallet.js";
 import { joinUrl } from "../common/utils.js";
+import { LNDTransaction } from "./lnd/transaction.js";
 
 export class MiddlewareLND extends ApiConnection {
   readonly channel: LNDChannel;
   readonly info: LNDInfo;
   readonly lightning: LNDLightning;
   readonly wallet: LNDWallet;
+  readonly transaction: LNDTransaction;
   constructor(baseUrl: string) {
     super(joinUrl(baseUrl, `v1/lnd`));
     const url = joinUrl(baseUrl, `v1/lnd`);
@@ -18,11 +20,12 @@ export class MiddlewareLND extends ApiConnection {
     this.info = new LNDInfo(url);
     this.lightning = new LNDLightning(url);
     this.wallet = new LNDWallet(url);
+    this.transaction = new LNDTransaction(url);
   }
 
   public set jwt(newJwt: string) {
     // This is ugly, but makes the final bundle smaller
-    this._jwt = this.channel.jwt = this.info.jwt = this.lightning.jwt = newJwt;
+    this._jwt = this.channel.jwt = this.info.jwt = this.lightning.jwt = this.transaction.jwt = newJwt;
   }
 
   public async address(): Promise<NewAddressResponse> {
