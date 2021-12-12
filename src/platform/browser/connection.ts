@@ -16,8 +16,7 @@ export abstract class ApiConnection extends BaseClass {
   ): Promise<ResponseType> {
     url = joinUrl(this._baseUrl, url);
     let authHeader = "";
-    if (this.jwt) authHeader = `JWT ${this.jwt}`;
-    if (!this.jwt && window && window.localStorage.getItem("citadel_jwt")) authHeader = `JWT ${window.localStorage.getItem("citadel_jwt")}`;
+    if (this._jwt) authHeader = `JWT ${this._jwt}`;
     let headers: Record<string, string> = {};
     if (method !== "GET") {
       headers = {
