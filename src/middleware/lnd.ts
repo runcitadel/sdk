@@ -25,7 +25,7 @@ export class MiddlewareLND extends ApiConnection {
 
   public set jwt(newJwt: string) {
     // This is ugly, but makes the final bundle smaller
-    this._jwt = this.channel.jwt = this.info.jwt = this.lightning.jwt = this.transaction.jwt = newJwt;
+    this._jwt = this.channel.jwt = this.info.jwt = this.lightning.jwt = this.transaction.jwt = this.wallet.jwt = newJwt;
   }
 
   public async address(): Promise<NewAddressResponse> {
