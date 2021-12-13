@@ -53,7 +53,7 @@ export class ManagerSystem extends ApiConnection {
   }
 
   async getLndConnectUrls(): Promise<LndConnectionDetails> {
-    return await this.get<LndConnectionDetails>("ldconnect-urls");
+    return await this.get<LndConnectionDetails>("lndconnect-urls");
   }
 
   async getUpdate(): Promise<false | versionFile> {
