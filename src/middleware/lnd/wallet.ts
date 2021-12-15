@@ -22,7 +22,7 @@ export class LNDWallet extends ApiConnection {
     return await this.get<ChannelBalanceResponse>("/lightning");
   }
 
-  public async generatSeed(): Promise<string[]> {
-    return await this.get<string[]>("/seed");
+  public async generateSeed(): Promise<string[]> {
+    return (await this.get<{seed: string[]}>("/seed")).seed;
   }
 }
