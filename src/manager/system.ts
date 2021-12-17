@@ -107,6 +107,10 @@ export class ManagerSystem extends ApiConnection {
     return (await this.get<{ uptime: number }>("uptime")).uptime;
   }
 
+  async disk(): Promise<"unknown" | "nvme"> {
+    return (await this.get<{ externalStorage: "unknown" | "nvme" }>("disk-type")).externalStorage;
+  }
+
   async isCitadelOS(): Promise<boolean> {
     return (
       (await this.get<{ os: "Citadel" | "unknown" }>("/")).os === "Citadel"
