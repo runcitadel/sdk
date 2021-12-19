@@ -25,7 +25,13 @@ export class MiddlewareLND extends ApiConnection {
 
   public set jwt(newJwt: string) {
     // This is ugly, but makes the final bundle smaller
-    this._jwt = this.channel.jwt = this.info.jwt = this.lightning.jwt = this.transaction.jwt = this.wallet.jwt = newJwt;
+    this._jwt =
+      this.channel.jwt =
+      this.info.jwt =
+      this.lightning.jwt =
+      this.transaction.jwt =
+      this.wallet.jwt =
+        newJwt;
   }
 
   public async address(): Promise<NewAddressResponse> {
@@ -36,5 +42,17 @@ export class MiddlewareLND extends ApiConnection {
     return (
       await this.post<{ signature: string }>("util/sign-message", { message })
     ).signature;
+  }
+  public async validateMessage(
+    message: string,
+    signature: string
+  ): Promise<{
+    pubkey: string;
+    valid: boolean;
+  }> {
+    return await this.post<{
+      pubkey: string;
+      valid: boolean;
+    }>("util/verify-message", { message, signature });
   }
 }
