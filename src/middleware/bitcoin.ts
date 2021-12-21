@@ -16,10 +16,10 @@ export type SyncStatus = {
 };
 
 export type StatsDump = {
-  blockchain_info: ChainInfo;
-  network_info: NetworkInfo;
-  mempool: MempoolInfo;
-  mining_info: MiningInfo;
+  blockchainInfo: ChainInfo;
+  networkInfo: NetworkInfo;
+  mempoolInfo: MempoolInfo;
+  miningInfo: MiningInfo;
 };
 
 export type Stats = {
@@ -63,7 +63,7 @@ export type Transaction = {
 
 export class MiddlewareBitcoin extends ApiConnection {
   constructor(baseUrl: string) {
-    super(joinUrl(baseUrl, `v2/bitcoin/info`));
+    super(joinUrl(baseUrl, `v1/bitcoin/info`));
   }
 
   async mempool(): Promise<MempoolInfo> {
