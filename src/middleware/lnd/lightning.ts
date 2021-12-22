@@ -31,29 +31,34 @@ export class LNDLightning extends ApiConnection {
     indexOffset: number
   ): Promise<ForwardingHistoryResponse> {
     return await this.get<ForwardingHistoryResponse>(
-      `/forwardingHistory?startTime=${startTime}&endTime=${endTime}&indexOffset=${indexOffset}`
+      `forwardingHistory?startTime=${startTime}&endTime=${endTime}&indexOffset=${indexOffset}`
     );
   }
 
   public async parsePaymentRequest(paymentRequest: string): Promise<invoice> {
-    return await this.get<invoice>(`/invoice?paymentRequest=${paymentRequest}`);
+    return await this.get<invoice>(`invoice?paymentRequest=${paymentRequest}`);
   }
 
   public async invoices(): Promise<Invoice[]> {
-    return await this.get<Invoice[]>("/invoices");
+    return await this.get<Invoice[]>("invoices");
   }
+
+  public async invoiceInfo(paymentHash: string): Promise<Invoice> {
+    return await this.get<Invoice>(`invoice-info?paymentHash=${paymentHash}`);
+  }
+
 
   public async payInvoice(
     paymentRequest: string,
     amt?: number
   ): Promise<SendResponse> {
-    return await this.post<SendResponse>("/payInvoice", {
+    return await this.post<SendResponse>("payInvoice", {
       paymentRequest,
       amt,
     });
   }
 
   public async getPayments(): Promise<Payment[]> {
-    return await this.get<Payment[]>("/payments");
+    return await this.get<Payment[]>("payments");
   }
 }
