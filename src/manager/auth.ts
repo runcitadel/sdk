@@ -28,7 +28,7 @@ export class ManagerAuth extends ApiConnection {
     const data = await this.post<{ jwt?: string }>("login", {
       password,
       totpToken,
-    });
+    }, false);
     if (typeof data !== "object" || data === null || !data.jwt)
       throw new Error("Failed to login.");
     return data.jwt;
