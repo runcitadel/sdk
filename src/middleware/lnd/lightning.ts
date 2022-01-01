@@ -17,8 +17,14 @@ export class LNDLightning extends ApiConnection {
     super(joinUrl(baseUrl, `lightning`));
   }
 
-  public async addInvoice(amt: string, memo = ""): Promise<Invoice> {
-    return await this.post<Invoice>("/addInvoice", {
+  public async addInvoice(amt: string, memo = ""): Promise<{
+    paymentRequest: string;
+    rHashStr: string;
+  }> {
+    return await this.post<{
+      paymentRequest: string;
+      rHashStr: string;
+    }>("/addInvoice", {
       memo,
       amt,
     });

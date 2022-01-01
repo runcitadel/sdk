@@ -157,9 +157,9 @@ export interface Transaction {
 }
 export interface SendResponse {
   paymentError: string;
-  paymentPreimage: Uint8Array;
+  paymentPreimage: string;
   paymentRoute: Route | undefined;
-  paymentHash: Uint8Array;
+  paymentHash: string;
 }
 export interface ChannelPoint {
   /**
