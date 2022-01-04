@@ -25,12 +25,20 @@ export class ManagerApps extends ApiConnection {
   async install(id: string): Promise<void> {
     await this.post(`/${id}/install`);
   }
+
   /**
-   * Unnstall an app
+   * Uninstall an app
    *
    * @param id The id of the app
    */
   async uninstall(id: string): Promise<void> {
     await this.post(`/${id}/uninstall`);
+  }
+
+  /**
+   * Update all apps
+   */
+  async update(): Promise<void> {
+    await this.post(`/update`);
   }
 }
