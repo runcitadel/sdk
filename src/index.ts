@@ -1,7 +1,7 @@
 import Citadel from "platform/citadel";
 
-export type { Manager } from "./manager/index";
-export type { Middleware } from "./middleware/index";
+export { Manager } from "./manager/index.js";
+export { Middleware } from "./middleware/index.js";
 export type { ManagerApps } from "./manager/apps";
 export type { ManagerAuth } from "./manager/auth";
 export type { ManagerExternal } from "./manager/external";
