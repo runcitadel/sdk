@@ -1,8 +1,7 @@
-import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import ttypescript from "ttypescript";
+import ts from "rollup-plugin-ts";
 
 export default [
   {
@@ -14,11 +13,7 @@ export default [
       },
     ],
     plugins: [
-      typescript({
-        typescript: ttypescript,
-        declaration: true,
-        target: "esnext",
-      }),
+      ts(),
       nodeResolve(),
       commonjs(),
       terser(),
@@ -33,11 +28,7 @@ export default [
       },
     ],
     plugins: [
-      typescript({
-        typescript: ttypescript,
-        declaration: true,
-        target: "esnext",
-      }),
+      ts(),
       nodeResolve(),
       commonjs(),
       terser(),

@@ -1,6 +1,5 @@
-import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
-import ttypescript from "ttypescript";
+import ts from "rollup-plugin-ts";
 
 export default [
   {
@@ -12,10 +11,7 @@ export default [
       },
     ],
     plugins: [
-      typescript({
-        typescript: ttypescript,
-        declaration: true,
-        target: "esnext",
+      ts({
         tsconfig: "tsconfig.browser.json",
       }),
       terser({
@@ -32,10 +28,7 @@ export default [
       },
     ],
     plugins: [
-      typescript({
-        typescript: ttypescript,
-        declaration: true,
-        target: "esnext",
+      ts({
         tsconfig: "tsconfig.browser.json",
       }),
       terser({
