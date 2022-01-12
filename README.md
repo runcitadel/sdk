@@ -27,5 +27,5 @@ console.log(await citadel.isOnline());
 console.log("Logging in...");
 await citadel.login("password123!", true);
 console.log("Testing connection...");
-await citadel.manager.auth.test();d
+await citadel.manager.auth.test();
 ```
