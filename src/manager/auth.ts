@@ -110,15 +110,16 @@ export class ManagerAuth extends ApiConnection {
    * Register a new user.
    * Currently, this is only possible if no one is registered yet.
    *
+   * @param {string} username The users name
    * @param {string} password The users password
    * @param {string} seed The mnemonic seed for the users wallet (LND aezeed)
    * @returns {string} A JsonWebToken for the user
    */
-  public async register(password: string, seed: string[]): Promise<string> {
+  public async register(username: string, password: string, seed: string[]): Promise<string> {
     const data = await this.post<{ jwt?: string }>("register", {
       seed,
       password,
-      name: "admin",
+      name: username,
     });
     if (!data.jwt) throw new Error("Failed to register new user.");
     return data.jwt;
