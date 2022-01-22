@@ -18,6 +18,7 @@ export default [
       commonjs(),
       terser(),
     ],
+    external: ["undici"],
   },
   {
     input: "src/useCitadel.ts",
@@ -33,6 +34,6 @@ export default [
       commonjs(),
       terser(),
     ],
-    external: ["react"],
+    external: ["undici", "react"],
   },
 ];
