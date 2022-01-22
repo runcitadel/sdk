@@ -43,10 +43,6 @@ export abstract class ApiConnection extends BaseClass {
       ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
     });
 
-    if (response.statusCode !== 200) {
-      throw new Error(await response.body.text());
-    }
-
     const data = await response.body.text();
     let parsed: unknown;
     try {
