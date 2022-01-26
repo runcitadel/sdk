@@ -3,7 +3,7 @@ import {ApiConnection as BaseClass} from "../../common/connection.js";
 import { RequestFunction } from "../../common/types.js";
 export abstract class ApiConnection extends BaseClass {
   private readonly _baseUrl: string;
-  private _requestFunc?: RequestFunction;
+  protected _requestFunc?: RequestFunction;
   constructor(baseUrl: string) {
     super();
     this._baseUrl = baseUrl;
