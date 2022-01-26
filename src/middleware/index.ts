@@ -1,4 +1,5 @@
 import { ApiConnection } from "platform/connection.js";
+import { RequestFunction } from "src/common/types.js";
 import { MiddlewareBitcoin } from "./bitcoin.js";
 import { MiddlewareLND } from "./lnd.js";
 import { MiddlewarePages } from "./pages.js";
@@ -43,5 +44,13 @@ export class Middleware extends ApiConnection {
   public set jwt(newJwt: string) {
     // This is ugly, but makes the final bundle smaller
     this.bitcoin.jwt = this.pages.jwt = this.lnd.jwt = this._jwt = newJwt;
+  }
+
+  public set requestFunc(requestFunc: RequestFunction) {
+    this.bitcoin.requestFunc =
+      this.pages.requestFunc =
+      this.lnd.requestFunc =
+      this._requestFunc =
+        requestFunc;
   }
 }

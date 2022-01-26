@@ -6,6 +6,7 @@ import { LNDLightning } from "./lnd/lightning.js";
 import { LNDWallet } from "./lnd/wallet.js";
 import { joinUrl } from "../common/utils.js";
 import { LNDTransaction } from "./lnd/transaction.js";
+import { RequestFunction } from "src/common/types.js";
 
 export class MiddlewareLND extends ApiConnection {
   readonly channel: LNDChannel;
@@ -32,6 +33,16 @@ export class MiddlewareLND extends ApiConnection {
       this.transaction.jwt =
       this.wallet.jwt =
         newJwt;
+  }
+  
+  public set requestFunc(requestFunc: RequestFunction) {
+    this.channel.requestFunc =
+      this.info.requestFunc =
+      this.lightning.requestFunc =
+      this.transaction.requestFunc =
+      this.wallet.requestFunc =
+      this._requestFunc =
+        requestFunc;
   }
 
   public async address(): Promise<NewAddressResponse> {

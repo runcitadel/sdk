@@ -1,4 +1,5 @@
 import { ApiConnection } from "platform/connection.js";
+import { RequestFunction } from "src/common/types.js";
 import { ManagerApps } from "./apps.js";
 import { ManagerAuth } from "./auth.js";
 import { ManagerExternal } from "./external.js";
@@ -56,5 +57,14 @@ export class Manager extends ApiConnection {
       this.system.jwt =
       this._jwt =
         jwt;
+  }
+
+  public set requestFunc(requestFunc: RequestFunction) {
+    this.auth.requestFunc =
+      this.apps.requestFunc =
+      this.external.requestFunc =
+      this.system.requestFunc =
+      this._requestFunc =
+        requestFunc;
   }
 }

@@ -1,6 +1,7 @@
 import { Manager } from "./manager/index.js";
 import { Middleware } from "./middleware/index.js";
 import { joinUrl } from "./common/utils.js";
+import { RequestFunction } from "./common/types.js";
 
 export default class Citadel {
   readonly manager;
@@ -69,5 +70,9 @@ export default class Citadel {
 
   public set jwt(newJwt: string) {
     this._jwt = this.manager.jwt = this.middleware.jwt = newJwt;
+  }
+
+  public set requestFunc(requestFunc: RequestFunction) {
+    this.manager.requestFunc = this.middleware.requestFunc = requestFunc;
   }
 }
