@@ -36,9 +36,18 @@ export class ManagerApps extends ApiConnection {
   }
 
   /**
+   * Update an app
+   *
+   * @param id The id of the app
+   */
+  async update(id: string): Promise<void> {
+    await this.post(`/${id}/update`);
+  }
+
+  /**
    * Update all apps
    */
-  async update(): Promise<void> {
+  async updateAll(): Promise<void> {
     await this.post(`/update`);
   }
 }
