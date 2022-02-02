@@ -50,4 +50,11 @@ export class ManagerApps extends ApiConnection {
   async updateAll(): Promise<void> {
     await this.post(`/update`);
   }
+
+  /**
+   * Get a list of all apps which can be updates
+   */
+  async listUpdateable(): Promise<string[]> {
+    return await this.get<string[]>(`/updates`);
+  }
 }
