@@ -163,11 +163,6 @@ export interface SendResponse {
 }
 export interface ChannelPoint {
   /**
-   * Txid of the funding transaction. When using REST, this field must be
-   * encoded as base64.
-   */
-  fundingTxidBytes: Uint8Array | undefined;
-  /**
    * Hex-encoded string representing the byte-reversed hash of the funding
    * transaction.
    */
@@ -176,8 +171,6 @@ export interface ChannelPoint {
   outputIndex: number | string;
 }
 export interface OutPoint {
-  /** Raw bytes representing the transaction id. */
-  txidBytes: Uint8Array;
   /** Reversed, hex-encoded string representing the transaction id. */
   txidStr: string;
   /** The index of the output on the transaction. */
@@ -202,7 +195,6 @@ export interface ConnectPeerResponse {}
 export interface HTLC {
   incoming: boolean;
   amount: number | string;
-  hashLock: Uint8Array;
   expirationHeight: number | string;
   /** Index identifying the htlc on the channel. */
   htlcIndex: number | string;
@@ -463,8 +455,6 @@ export interface TimestampedError {
 export interface GetInfoResponse {
   /** The version of the LND software that the node is running. */
   version: string;
-  /** The SHA1 commit hash that the daemon is compiled with. */
-  commitHash: string;
   /** The identity pubkey of the current node. */
   identityPubkey: string;
   /** If applicable, the alias of the current node, e.g. "bob" */
@@ -493,13 +483,6 @@ export interface GetInfoResponse {
   chains: Chain[];
   /** The URIs of the current node. */
   uris: string[];
-  /**
-   * Features that our node has advertised in our init message, node
-   * announcements and invoices.
-   */
-  features: {
-    [key: number]: Feature;
-  };
 }
 export interface Chain {
   /** The blockchain the node is on (eg bitcoin, litecoin) */
@@ -670,13 +653,13 @@ export interface ChannelBalanceResponse {
   /** Sum of channels remote balances. */
   remoteBalance: Amount | undefined;
   /** Sum of channels local unsettled balances. */
-  unsettledLocalBalance: Amount | undefined;
+  unsettledLocalBalance?: Amount | undefined;
   /** Sum of channels remote unsettled balances. */
-  unsettledRemoteBalance: Amount | undefined;
+  unsettledRemoteBalance?: Amount | undefined;
   /** Sum of channels pending local balances. */
-  pendingOpenLocalBalance: Amount | undefined;
+  pendingOpenLocalBalance?: Amount | undefined;
   /** Sum of channels pending remote balances. */
-  pendingOpenRemoteBalance: Amount | undefined;
+  pendingOpenRemoteBalance?: Amount | undefined;
 }
 export interface Hop {
   /**
@@ -715,23 +698,8 @@ export interface Hop {
    * with mpp_record.
    */
   ampRecord: AMPRecord | undefined;
-  /**
-   * An optional set of key-value TLV records. This is useful within the context
-   * of the SendToRoute call as it allows callers to specify arbitrary K-V pairs
-   * to drop off at each hop within the onion.
-   */
-  customRecords: {
-    [key: number]: Uint8Array;
-  };
 }
 export interface MPPRecord {
-  /**
-   * A unique, random identifier used to authenticate the sender as the intended
-   * payer of a multi-path payment. The payment_addr must be the same for all
-   * subpayments, and match the payment_addr provided in the receiver's invoice.
-   * The same payment_addr must be used on all subpayments.
-   */
-  paymentAddr: Uint8Array;
   /**
    * The total amount in milli-satoshis being sent as part of a larger multi-path
    * payment. The caller is responsible for ensuring subpayments to the same node
@@ -741,8 +709,6 @@ export interface MPPRecord {
   totalAmtMsat: number | string;
 }
 export interface AMPRecord {
-  rootShare: Uint8Array;
-  setId: Uint8Array;
   childIndex: number | string;
 }
 /**
@@ -863,17 +829,6 @@ export interface Invoice {
    */
   memo: string;
   /**
-   * The hex-encoded preimage (32 byte) which will allow settling an incoming
-   * HTLC payable to this preimage. When using REST, this field must be encoded
-   * as base64.
-   */
-  rPreimage: Uint8Array;
-  /**
-   * The hash of the preimage. When using REST, this field must be encoded as
-   * base64.
-   */
-  rHash: Uint8Array;
-  /**
    * The value of this invoice in satoshis
    *
    * The fields value and value_msat are mutually exclusive.
@@ -895,19 +850,6 @@ export interface Invoice {
    * payment to the recipient.
    */
   paymentRequest: string;
-  /**
-   * Hash (SHA-256) of a description of the payment. Used if the description of
-   * payment (memo) is too long to naturally fit within the description field
-   * of an encoded payment request. When using REST, this field must be encoded
-   * as base64.
-   */
-  descriptionHash: Uint8Array;
-  /** Payment request expiry time in seconds. Default is 3600 (1 hour). */
-  expiry: number | string;
-  /** Fallback on-chain address. */
-  fallbackAddr: string;
-  /** Delta to use for the time-lock of the CLTV extended to the final hop. */
-  cltvExpiry: number | string;
   /**
    * Route hints that can each be individually used to assist in reaching the
    * invoice's destination.
@@ -960,12 +902,6 @@ export interface Invoice {
    * [EXPERIMENTAL].
    */
   isKeysend: boolean;
-  /**
-   * The payment address of this invoice. This value will be used in MPP
-   * payments, and also for newer invoies that always require the MPP paylaod
-   * for added end-to-end security.
-   */
-  paymentAddr: Uint8Array;
   /** Signals whether or not this is an AMP invoice. */
   isAmp: boolean;
 }
@@ -994,38 +930,10 @@ export interface InvoiceHTLC {
   expiryHeight: number | string;
   /** Current state the htlc is in. */
   state: InvoiceHTLCState;
-  /** Custom tlv records. */
-  customRecords: {
-    [key: number]: Uint8Array;
-  };
   /** The total amount of the mpp payment in msat. */
   mppTotalAmtMsat: number | string;
-  /** Details relevant to AMP HTLCs, only populated if this is an AMP HTLC. */
-  amp: AMP | undefined;
 }
-/** Details specific to AMP HTLCs. */
-export interface AMP {
-  /**
-   * An n-of-n secret share of the root seed from which child payment hashes
-   * and preimages are derived.
-   */
-  rootShare: Uint8Array;
-  /** An identifier for the HTLC set that this HTLC belongs to. */
-  setId: Uint8Array;
-  /**
-   * A nonce used to randomize the child preimage and child hash from a given
-   * root_share.
-   */
-  childIndex: number | string;
-  /** The payment hash of the AMP HTLC. */
-  hash: Uint8Array;
-  /**
-   * The preimage used to settle this AMP htlc. This field will only be
-   * populated if the invoice is in InvoiceState_ACCEPTED or
-   * InvoiceState_SETTLED.
-   */
-  preimage: Uint8Array;
-}
+
 export interface ListInvoiceResponse {
   /**
    * A list of invoices from the time slice of the time series specified in the
@@ -1095,8 +1003,6 @@ export interface HTLCAttempt {
   resolveTimeNs: number | string;
   /** Detailed htlc failure info. */
   failure: Failure | undefined;
-  /** The preimage that was used to settle the HTLC. */
-  preimage: Uint8Array;
 }
 export enum HTLCAttempt_HTLCStatus {
   IN_FLIGHT = 0,
@@ -1127,14 +1033,7 @@ export interface PayReq {
   expiry: number | string;
   description: string;
   descriptionHash: string;
-  fallbackAddr: string;
-  cltvExpiry: number | string;
-  routeHints: RouteHint[];
-  paymentAddr: Uint8Array;
   numMsat: number | string;
-  features: {
-    [key: number]: Feature;
-  };
 }
 export interface Feature {
   name: string;
@@ -1239,8 +1138,6 @@ export interface Failure {
   channelUpdate: ChannelUpdate | undefined;
   /** A failure type-dependent htlc value. */
   htlcMsat: number | string;
-  /** The sha256 sum of the onion payload. */
-  onionSha256: Uint8Array;
   /** A failure type-dependent cltv expiry value. */
   cltvExpiry: number | string;
   /** A failure type-dependent flags value. */
@@ -1297,18 +1194,6 @@ export enum Failure_FailureCode {
 }
 
 export interface ChannelUpdate {
-  /**
-   * The signature that validates the announced data and proves the ownership
-   * of node id.
-   */
-  signature: Uint8Array;
-  /**
-   * The target chain that this channel was opened within. This value
-   * should be the genesis hash of the target chain. Along with the short
-   * channel ID, this uniquely identifies the channel globally in a
-   * blockchain.
-   */
-  chainHash: Uint8Array;
   /** The unique description of the funding transaction. */
   chanId: number | string;
   /**
@@ -1350,14 +1235,6 @@ export interface ChannelUpdate {
   feeRate: number | string;
   /** The maximum HTLC value which will be accepted. */
   htlcMaximumMsat: number | string;
-  /**
-   * The set of data that was appended to this message, some of which we may
-   * not actually know how to iterate or parse. By holding onto this data, we
-   * ensure that we're able to properly validate the set of signatures that
-   * cover these new fields, and ensure we're able to make upgrades to the
-   * network in a forwards compatible manner.
-   */
-  extraOpaqueData: Uint8Array;
 }
 
 export interface GenSeedResponse {
@@ -1369,9 +1246,4 @@ export interface GenSeedResponse {
    * to this cipher seed.
    */
   cipherSeedMnemonic: string[];
-  /**
-   * enciphered_seed are the raw aezeed cipher seed bytes. This is the raw
-   * cipher text before run through our mnemonic encoding scheme.
-   */
-  encipheredSeed: Uint8Array;
 }
