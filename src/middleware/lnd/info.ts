@@ -37,8 +37,12 @@ export class LNDInfo extends ApiConnection {
     }>("/sync");
   }
 
-  public async version(): Promise<string> {
-    return (await this.get<{ version: string }>("/version")).version;
+  public async version(): Promise<{version: string, implementation: string}> {
+    const data = await this.get<{ version: string, implementation?: string }>("/version");
+    return {
+      implementation: "lnd", 
+      ...data
+    }
   }
 
   public async alias(): Promise<string> {
