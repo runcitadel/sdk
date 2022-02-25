@@ -14,7 +14,12 @@ export class ManagerApps extends ApiConnection {
    * @returns A list of apps with metadata
    */
   async list(installed = false): Promise<app[]> {
-    return await this.get<app[]>(installed ? "/?installed=1" : "/");
+    return (await this.get<(app)[]>(installed ? "/?installed=1" : "/")).map((app) => {
+      return {
+        ...app,
+        compatible: app.compatible ?? true,
+      };
+    });
   }
 
   /**

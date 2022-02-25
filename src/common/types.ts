@@ -41,6 +41,8 @@ export type app = {
   hiddenService?: string;
   /** Automatically added */
   installed?: boolean;
+  /** Automatically added */
+  compatible: boolean;
 };
 type BuildPowersOf2LengthArrays<
   N extends number,
