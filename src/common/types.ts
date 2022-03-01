@@ -108,10 +108,6 @@ export type debugStatus = {
   dmesg: string;
 };
 
-export type systemStatus = {
-  highMemoryUsage: boolean;
-};
-
 export type connectionDetails = {
   address: string;
   port: number;

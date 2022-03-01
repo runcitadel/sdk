@@ -7,7 +7,6 @@ import type {
   LndConnectionDetails,
   memUsage,
   RpcConnectionDetails,
-  systemStatus,
   updateStatus,
   versionFile,
 } from "../common/types";
@@ -24,14 +23,6 @@ export class ManagerSystem extends ApiConnection {
    */
   async info(): Promise<versionFile> {
     return await this.get<versionFile>("info");
-  }
-
-  async status(): Promise<systemStatus> {
-    return await this.get<systemStatus>("status");
-  }
-
-  async clearMemoryWarning(): Promise<void> {
-    await this.get("clear-memory-warning");
   }
 
   async getHiddenServiceUrl(): Promise<string> {
