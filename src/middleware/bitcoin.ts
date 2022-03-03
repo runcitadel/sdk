@@ -79,11 +79,15 @@ export class MiddlewareBitcoin extends ApiConnection {
     inbound: number;
     outbound: number;
   }> {
-    return (await this.get<{ count:{
-      total: number;
-      inbound: number;
-      outbound: number;
-    }}>("/connections")).count;
+    return (
+      await this.get<{
+        count: {
+          total: number;
+          inbound: number;
+          outbound: number;
+        };
+      }>("/connections")
+    ).count;
   }
 
   async isOperational(): Promise<boolean> {

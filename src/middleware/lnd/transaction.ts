@@ -32,21 +32,28 @@ export class LNDTransaction extends ApiConnection {
     return this.get<Transaction_extended[]>("/");
   }
 
-  async sendCoins(address: string, amount: number, satPerVByte: number): Promise<SendCoinsResponse> {
+  async sendCoins(
+    address: string,
+    amount: number,
+    satPerVByte: number
+  ): Promise<SendCoinsResponse> {
     return this.post<SendCoinsResponse>("/", {
       addr: address,
       amt: amount,
-      satPerByte: satPerVByte
+      satPerByte: satPerVByte,
     });
   }
 
-  async sendAllCoins(address: string, satPerVByte: number): Promise<SendCoinsResponse> {
+  async sendAllCoins(
+    address: string,
+    satPerVByte: number
+  ): Promise<SendCoinsResponse> {
     return this.post<SendCoinsResponse>("/", {
       addr: address,
       // Ignored, but needs to be passed
       amt: 1,
       satPerByte: satPerVByte,
-      sendAll: true
+      sendAll: true,
     });
   }
 
@@ -56,7 +63,9 @@ export class LNDTransaction extends ApiConnection {
     confTarget: RangeOf2<2, 1000>,
     sweep = false
   ): Promise<EstimateFeeResponseExtended> {
-    return await this.get<EstimateFeeResponseExtended>(`/estimateFee?address=${address}&amt=${amt}&confTarget=${confTarget}&sweep=${sweep}`);
+    return await this.get<EstimateFeeResponseExtended>(
+      `/estimateFee?address=${address}&amt=${amt}&confTarget=${confTarget}&sweep=${sweep}`
+    );
   }
 
   public async estimateFeeAll(
@@ -74,6 +83,8 @@ export class LNDTransaction extends ApiConnection {
       slow: EstimateFeeResponseExtended;
       normal: EstimateFeeResponseExtended;
       cheapest: EstimateFeeResponseExtended;
-    }>(`/estimateFee?address=${address}&amt=${amt}&confTarget=0&sweep=${sweep}`);
+    }>(
+      `/estimateFee?address=${address}&amt=${amt}&confTarget=0&sweep=${sweep}`
+    );
   }
 }

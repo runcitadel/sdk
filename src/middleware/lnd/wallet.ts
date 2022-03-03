@@ -23,6 +23,6 @@ export class LNDWallet extends ApiConnection {
   }
 
   public async generateSeed(): Promise<string[]> {
-    return (await this.get<{seed: string[]}>("/seed")).seed;
+    return (await this.get<{ seed: string[] }>("/seed")).seed;
   }
 }

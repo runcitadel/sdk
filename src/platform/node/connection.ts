@@ -1,6 +1,6 @@
 import { joinUrl } from "../../common/utils.js";
 import { request } from "undici";
-import {ApiConnection as BaseClass} from "../../common/connection.js";
+import { ApiConnection as BaseClass } from "../../common/connection.js";
 import { RequestFunction } from "src/common/types.js";
 
 export abstract class ApiConnection extends BaseClass {
@@ -22,8 +22,13 @@ export abstract class ApiConnection extends BaseClass {
     auth = true
   ): Promise<ResponseType> {
     url = joinUrl(this._baseUrl, url);
-    if(this._requestFunc) {
-      return await this._requestFunc<ResponseType>(this._jwt, url, method, auth);
+    if (this._requestFunc) {
+      return await this._requestFunc<ResponseType>(
+        this._jwt,
+        url,
+        method,
+        auth
+      );
     }
     let authHeader = "";
     if (this._jwt) authHeader = `JWT ${this._jwt}`;

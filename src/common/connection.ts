@@ -1,5 +1,4 @@
 export abstract class ApiConnection {
-
   protected _jwt = "";
 
   public set jwt(jwt: string) {
@@ -11,7 +10,7 @@ export abstract class ApiConnection {
     method: "GET" | "POST" | "PUT" | "DELETE",
     body: unknown,
     auth: boolean
-  ): Promise<ResponseType> 
+  ): Promise<ResponseType>;
 
   protected async get<ResponseType = unknown>(
     url: string,

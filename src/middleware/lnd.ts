@@ -34,7 +34,7 @@ export class MiddlewareLND extends ApiConnection {
       this.wallet.jwt =
         newJwt;
   }
-  
+
   public set requestFunc(requestFunc: RequestFunction) {
     this.channel.requestFunc =
       this.info.requestFunc =

@@ -17,7 +17,10 @@ export class LNDLightning extends ApiConnection {
     super(joinUrl(baseUrl, `lightning`));
   }
 
-  public async addInvoice(amt: string, memo = ""): Promise<{
+  public async addInvoice(
+    amt: string,
+    memo = ""
+  ): Promise<{
     paymentRequest: string;
     rHashStr: string;
   }> {
@@ -40,8 +43,12 @@ export class LNDLightning extends ApiConnection {
     );
   }
 
-  public async parsePaymentRequest(paymentRequest: string): Promise<extendedPaymentRequest> {
-    return await this.get<extendedPaymentRequest>(`invoice?paymentRequest=${paymentRequest}`);
+  public async parsePaymentRequest(
+    paymentRequest: string
+  ): Promise<extendedPaymentRequest> {
+    return await this.get<extendedPaymentRequest>(
+      `invoice?paymentRequest=${paymentRequest}`
+    );
   }
 
   public async invoices(): Promise<Invoice[]> {
@@ -51,7 +58,6 @@ export class LNDLightning extends ApiConnection {
   public async invoiceInfo(paymentHash: string): Promise<Invoice> {
     return await this.get<Invoice>(`invoice-info?paymentHash=${paymentHash}`);
   }
-
 
   public async payInvoice(
     paymentRequest: string,

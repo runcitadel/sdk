@@ -25,10 +25,14 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string} A JsonWebToken for the user
    */
   public async login(password: string, totpToken: string): Promise<string> {
-    const data = await this.post<{ jwt?: string }>("login", {
-      password,
-      totpToken,
-    }, false);
+    const data = await this.post<{ jwt?: string }>(
+      "login",
+      {
+        password,
+        totpToken,
+      },
+      false
+    );
     if (typeof data !== "object" || data === null || !data.jwt)
       throw new Error("Failed to login.");
     return data.jwt;
@@ -115,7 +119,11 @@ export class ManagerAuth extends ApiConnection {
    * @param {string} seed The mnemonic seed for the users wallet (LND aezeed)
    * @returns {string} A JsonWebToken for the user
    */
-  public async register(username: string, password: string, seed: string[]): Promise<string> {
+  public async register(
+    username: string,
+    password: string,
+    seed: string[]
+  ): Promise<string> {
     const data = await this.post<{ jwt?: string }>("register", {
       seed,
       password,
@@ -132,10 +140,14 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string[]} The mnemonic seed
    */
   public async seed(password: string, totpToken?: string): Promise<string[]> {
-    const data = await this.post<{ seed?: string[] }>("seed", {
-      password,
-      totpToken,
-    }, false);
+    const data = await this.post<{ seed?: string[] }>(
+      "seed",
+      {
+        password,
+        totpToken,
+      },
+      false
+    );
     if (!data.seed) throw new Error("Failed to get seed.");
     return data.seed;
   }

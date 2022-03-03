@@ -48,7 +48,9 @@ export class LNDChannel extends ApiConnection {
     confTarget: RangeOf2<2, 1000>,
     sweep = false
   ): Promise<EstimateFeeResponseExtended> {
-    return await this.get<EstimateFeeResponseExtended>(`/estimateFee?amt=${amt}&confTarget=${confTarget}&sweep=${sweep}`);
+    return await this.get<EstimateFeeResponseExtended>(
+      `/estimateFee?amt=${amt}&confTarget=${confTarget}&sweep=${sweep}`
+    );
   }
 
   public async estimateFeeAll(

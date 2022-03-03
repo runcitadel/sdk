@@ -136,4 +136,10 @@ export type memUsage = {
   breakdown: memBreakdown[];
 };
 
-export type RequestFunction = <ResponseType = unknown>(jwt: string, url: string, method?: "GET" | "POST" | "PUT" | "DELETE", body?: unknown, auth?: boolean) => Promise<ResponseType>;
+export type RequestFunction = <ResponseType = unknown>(
+  jwt: string,
+  url: string,
+  method?: "GET" | "POST" | "PUT" | "DELETE",
+  body?: unknown,
+  auth?: boolean
+) => Promise<ResponseType>;

@@ -2,7 +2,7 @@ import Citadel from "platform/citadel";
 import { useRef } from "react";
 
 /**
- * React hook for the Citadel SDK 
+ * React hook for the Citadel SDK
  */
 export function useCitadel() {
   //On first load set up a client-side Citadel instance that persists between re-renders
