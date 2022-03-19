@@ -89,7 +89,7 @@ export class ManagerAuth extends ApiConnection {
     await this.post("change-password", {
       password: currentPassword,
       newPassword,
-    });
+    }, false);
   }
 
   /**
