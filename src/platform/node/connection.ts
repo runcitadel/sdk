@@ -1,7 +1,7 @@
 import { joinUrl } from "../../common/utils.js";
-import { request } from "undici";
+import { fetch } from "undici";
 import { ApiConnection as BaseClass } from "../../common/connection.js";
-import { RequestFunction } from "src/common/types.js";
+import { RequestFunction } from "../../common/types.js";
 
 export abstract class ApiConnection extends BaseClass {
   private readonly _baseUrl: string;
@@ -50,13 +50,17 @@ export abstract class ApiConnection extends BaseClass {
       }
     }
 
-    const response = await request(url, {
+    const response = await fetch(url, {
       headers,
       method,
       ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
     });
 
-    const data = await response.body.text();
+    if (response.status !== 200) {
+      throw new Error(await response.text());
+    }
+
+    const data = await response.text();
     let parsed: unknown;
     try {
       parsed = JSON.parse(data);
