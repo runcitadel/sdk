@@ -12,6 +12,7 @@ export type { MiddlewareBitcoin } from "./middleware/bitcoin";
 export type { LNDChannel } from "./middleware/lnd/channel";
 export type { LNDInfo } from "./middleware/lnd/info";
 export type { LNDLightning } from "./middleware/lnd/lightning";
+export type { LNDTransaction } from "./middleware/lnd/transaction"; 
 export type { LNDWallet } from "./middleware/lnd/wallet";
 export type { RangeOf2 } from "./common/types.js";
 
@@ -138,5 +139,7 @@ export {
   LightningBalance,
   LightningDetails,
 } from "./middleware/pages";
+
+export { LnAddressSignupResponse } from "./manager/external";
 
 export default Citadel;
