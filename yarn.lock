@@ -262,10 +262,11 @@ __metadata:
     typedoc: ^0.22.13
     typescript: ^4.6.3
     undici: ^5.0.0
-  peerDependencies:
-    "@types/react": ^17.0.43
-    react: ^18.0.0
   dependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
     undici:
       optional: true
   languageName: unknown
