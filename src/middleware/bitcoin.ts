@@ -70,6 +70,10 @@ export class MiddlewareBitcoin extends ApiConnection {
     return await this.get<MempoolInfo>("/mempool");
   }
 
+  async isInstalled(): Promise<boolean> {
+    return (await this.get<{installed: boolean}>("/isInstalled")).installed;
+  }
+
   async blockcount(): Promise<number> {
     return (await this.get<{ count: number }>("/blockcount")).count;
   }

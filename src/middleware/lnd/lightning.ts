@@ -33,6 +33,22 @@ export class LNDLightning extends ApiConnection {
     });
   }
 
+  public async addOffer(
+    amount: string | number,
+    description = ""
+  ): Promise<{
+    bolt12: string;
+    bolt12_unsigned: string;
+  }> {
+    return await this.post<{
+      bolt12: string;
+      bolt12_unsigned: string;
+    }>("/addOffer", {
+      amount,
+      description,
+    });
+  }
+
   public async forwardingHistory(
     startTime: number,
     endTime: number,

@@ -483,6 +483,8 @@ export interface GetInfoResponse {
   chains: Chain[];
   /** The URIs of the current node. */
   uris: string[];
+  /** True if the current node implementation supports Bolt12 */
+  hasBolt12: boolean;
 }
 export interface Chain {
   /** The blockchain the node is on (eg bitcoin, litecoin) */
