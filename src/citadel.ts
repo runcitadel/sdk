@@ -22,14 +22,14 @@ export default class Citadel {
     manager: boolean;
     middleware: boolean;
     node: boolean;
-    lnd: {
+    lightning: {
       operational: boolean;
       unlocked: boolean;
     };
   }> {
     const manager = await this.manager.isOnline();
     const middleware = await this.middleware.isOnline();
-    let lnd: {
+    let lightning: {
       operational: boolean;
       unlocked: boolean;
     } = {
@@ -37,14 +37,14 @@ export default class Citadel {
       unlocked: false,
     };
     try {
-      lnd = await this.middleware.lnd.info.getStatus();
+      lightning = await this.middleware.lightning.info.getStatus();
     } catch {}
 
     return {
       manager,
       middleware,
       node: manager && middleware,
-      lnd: lnd,
+      lightning,
     };
   }
 
