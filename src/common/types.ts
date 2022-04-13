@@ -20,13 +20,13 @@ export type app = {
   /** A longer description of the app (50 to 200 words) */
   description: string;
   /** The person(s) who created the app */
-  developer: string;
+  developers: Record<string, string>;
   /** The url to the app's website */
   website: string;
   /** The dependencies of the app */
   dependencies: Dependency[];
   /** The url to the app's Git repository */
-  repo: string;
+  repo: string | Record<string, string>;
   /** The url to the app's support website/chat */
   support: string;
   /** The port the app's web UI uses */
@@ -44,6 +44,7 @@ export type app = {
   /** Automatically added */
   compatible: boolean;
 };
+
 type BuildPowersOf2LengthArrays<
   N extends number,
   R extends never[][]
