@@ -1,4 +1,4 @@
-import BaseCitadel from "../../citadel.js";
+import BaseCitadel from '../../citadel.js';
 
 export default class Citadel extends BaseCitadel {
   /**
@@ -6,7 +6,7 @@ export default class Citadel extends BaseCitadel {
    * @returns The discovered node or false if none found
    */
   public static async discover(): Promise<string | false> {
-    for (const hostname of ["citadel.local", "citadel"]) {
+    for (const hostname of ['citadel.local', 'citadel']) {
       try {
         await fetch(`http://${hostname}`);
         return hostname;

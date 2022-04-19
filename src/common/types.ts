@@ -1,8 +1,8 @@
 /// <reference types="node" />
 /** A dependency an app could have */
-export type Dependency = "bitcoind" | "electrum" | "lnd";
+export type Dependency = 'bitcoind' | 'electrum' | 'lnd';
 /** A permission which can be granted to an app */
-export type Permission = Dependency | "root" | "hw";
+export type Permission = Dependency | 'root' | 'hw';
 /**
  * Defines an app
  */
@@ -47,15 +47,15 @@ export type app = {
 
 type BuildPowersOf2LengthArrays<
   N extends number,
-  R extends never[][]
+  R extends never[][],
 > = R[0][N] extends never
   ? R
   : BuildPowersOf2LengthArrays<N, [[...R[0], ...R[0]], ...R]>;
 type ConcatLargestUntilDone<
   N extends number,
   R extends never[][],
-  B extends never[]
-> = B["length"] extends N
+  B extends never[],
+> = B['length'] extends N
   ? B
   : [...R[0], ...B][N] extends never
   ? ConcatLargestUntilDone<
@@ -80,13 +80,13 @@ type TupleOf<T, N extends number> = number extends N
           : never
         : never;
     }[N];
-export type RangeOf<N extends number> = Partial<TupleOf<unknown, N>>["length"];
+export type RangeOf<N extends number> = Partial<TupleOf<unknown, N>>['length'];
 export type RangeOf2<From extends number, To extends number> =
   | Exclude<RangeOf<To>, RangeOf<From>>
   | From;
 /** An update status file */
 export type updateStatus = {
-  state: "installing" | "success" | "failed";
+  state: 'installing' | 'success' | 'failed';
   progress: RangeOf2<0, 100>;
   description: string;
   updateTo?: string;
@@ -98,19 +98,19 @@ export type versionFile = {
   notes: string;
 };
 export type backupStatus = {
-  status: "success" | "failed";
+  status: 'success' | 'failed';
   /** A unix timestamp of when the backup was created */
   timestamp: number;
 };
 export type debugStatus = {
-  status: "requested" | "processing" | "success";
+  status: 'requested' | 'processing' | 'success';
   debug: string;
   /** The dmesg logs */
   dmesg: string;
 };
 export type systemStatus = {
-  type: "reboot" | "shutdown";
-  status: "requested";
+  type: 'reboot' | 'shutdown';
+  status: 'requested';
 };
 
 export type connectionDetails = {
@@ -144,7 +144,7 @@ export type memUsage = {
 export type RequestFunction = <ResponseType = unknown>(
   jwt: string,
   url: string,
-  method?: "GET" | "POST" | "PUT" | "DELETE",
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE',
   body?: unknown,
-  auth?: boolean
+  auth?: boolean,
 ) => Promise<ResponseType>;

@@ -1,12 +1,12 @@
-import { ApiConnection } from "platform/connection.js";
-import { joinUrl } from "../common/utils.js";
+import {ApiConnection} from 'platform/connection.js';
+import {joinUrl} from '../common/utils.js';
 import {
   ChainInfo,
   MempoolInfo,
   MiningInfo,
   NetworkInfo,
   BitcoinTransaction,
-} from "./bitcoin-types";
+} from './bitcoin-types';
 
 export type SyncStatus = {
   chain: string;
@@ -67,15 +67,15 @@ export class MiddlewareBitcoin extends ApiConnection {
   }
 
   async mempool(): Promise<MempoolInfo> {
-    return await this.get<MempoolInfo>("/mempool");
+    return await this.get<MempoolInfo>('/mempool');
   }
 
   async isInstalled(): Promise<boolean> {
-    return (await this.get<{installed: boolean}>("/isInstalled")).installed;
+    return (await this.get<{installed: boolean}>('/isInstalled')).installed;
   }
 
   async blockcount(): Promise<number> {
-    return (await this.get<{ count: number }>("/blockcount")).count;
+    return (await this.get<{count: number}>('/blockcount')).count;
   }
 
   async connections(): Promise<{
@@ -90,32 +90,32 @@ export class MiddlewareBitcoin extends ApiConnection {
           inbound: number;
           outbound: number;
         };
-      }>("/connections")
+      }>('/connections')
     ).count;
   }
 
   async isOperational(): Promise<boolean> {
-    return (await this.get<{ operational: boolean }>("/status")).operational;
+    return (await this.get<{operational: boolean}>('/status')).operational;
   }
 
   async syncStatus(): Promise<SyncStatus> {
-    return await this.get<SyncStatus>("/sync");
+    return await this.get<SyncStatus>('/sync');
   }
 
   async version(): Promise<string> {
-    return (await this.get<{ version: string }>("/version")).version;
+    return (await this.get<{version: string}>('/version')).version;
   }
 
   async statsDump(): Promise<StatsDump> {
-    return await this.get<StatsDump>("/statsDump");
+    return await this.get<StatsDump>('/statsDump');
   }
 
   async stats(): Promise<Stats> {
-    return await this.get<Stats>("/stats");
+    return await this.get<Stats>('/stats');
   }
 
   async blockHash(height: number): Promise<string> {
-    return (await this.get<{ hash: string }>(`/block?height=${height}`)).hash;
+    return (await this.get<{hash: string}>(`/block?height=${height}`)).hash;
   }
 
   async block(hash: string): Promise<Block> {

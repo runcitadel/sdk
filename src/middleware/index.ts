@@ -1,8 +1,8 @@
-import { ApiConnection } from "platform/connection.js";
-import { RequestFunction } from "src/common/types.js";
-import { MiddlewareBitcoin } from "./bitcoin.js";
-import { MiddlewareLND } from "./lnd.js";
-import { MiddlewarePages } from "./pages.js";
+import {ApiConnection} from 'platform/connection.js';
+import {RequestFunction} from 'src/common/types.js';
+import {MiddlewareBitcoin} from './bitcoin.js';
+import {MiddlewareLND} from './lnd.js';
+import {MiddlewarePages} from './pages.js';
 
 export class Middleware extends ApiConnection {
   readonly pages: MiddlewarePages;
@@ -29,7 +29,7 @@ export class Middleware extends ApiConnection {
       version: string;
       features?: string[];
       isCitadel?: true | undefined;
-    }>("ping");
+    }>('ping');
   }
 
   public async isOnline(): Promise<boolean> {

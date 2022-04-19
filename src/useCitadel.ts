@@ -1,5 +1,5 @@
-import Citadel from "platform/citadel";
-import { useRef } from "react";
+import Citadel from 'platform/citadel';
+import {useRef} from 'react';
 
 /**
  * React hook for the Citadel SDK
@@ -10,8 +10,8 @@ export function useCitadel() {
   //Todo: dynamically determine URL maybe with Citadel.discover() but currently getting CORs errors with that
   //Once that's working it should replace the hardcoded string below "http://citadel.local"
   if (!ref.current) {
-    console.log("useCitadel setting ref");
-    ref.current = new Citadel("http://citadel.local");
+    console.log('useCitadel setting ref');
+    ref.current = new Citadel('http://citadel.local');
   }
 
   return ref.current;

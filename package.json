@@ -8,6 +8,7 @@
     "start:node": "rollup --watch -c",
     "start:browser": "rollup --watch -c rollup.config.browser.js",
     "lint": "eslint --fix . && prettier -w \"src/**/*.ts\"",
+    "lint:check": "eslint . \"src/**/*.ts\"",
     "build": "rm -rf dist browser && rollup -c && rollup -c rollup.config.browser.js",
     "docs": "typedoc --out docs src/index.ts",
     "deps": "ncu -u",

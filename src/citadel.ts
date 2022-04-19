@@ -1,16 +1,16 @@
-import { Manager } from "./manager/index.js";
-import { Middleware } from "./middleware/index.js";
-import { joinUrl } from "./common/utils.js";
-import { RequestFunction } from "./common/types.js";
+import {Manager} from './manager/index.js';
+import {Middleware} from './middleware/index.js';
+import {joinUrl} from './common/utils.js';
+import {RequestFunction} from './common/types.js';
 
 export default class Citadel {
   readonly manager;
   readonly middleware;
-  private _jwt = "";
+  private _jwt = '';
 
   constructor(baseUrl: string) {
-    const middlewareApi = joinUrl(baseUrl, "api");
-    const managerApi = joinUrl(baseUrl, "manager-api");
+    const middlewareApi = joinUrl(baseUrl, 'api');
+    const managerApi = joinUrl(baseUrl, 'manager-api');
     this.manager = new Manager(managerApi.toString());
     this.middleware = new Middleware(middlewareApi.toString());
   }

@@ -1,6 +1,6 @@
-import { joinUrl } from "../../common/utils.js";
-import { ApiConnection as BaseClass } from "../../common/connection.js";
-import { RequestFunction } from "../../common/types.js";
+import {joinUrl} from '../../common/utils.js';
+import {ApiConnection as BaseClass} from '../../common/connection.js';
+import {RequestFunction} from '../../common/types.js';
 export abstract class ApiConnection extends BaseClass {
   private readonly _baseUrl: string;
   protected _requestFunc?: RequestFunction;
@@ -15,37 +15,40 @@ export abstract class ApiConnection extends BaseClass {
 
   async _request<ResponseType = unknown>(
     url: string,
-    method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
     body: unknown = {},
-    auth = true
+    auth = true,
   ): Promise<ResponseType> {
     url = joinUrl(this._baseUrl, url);
+
     if (this._requestFunc) {
       return await this._requestFunc<ResponseType>(
         this._jwt,
         url,
         method,
-        auth
+        auth,
       );
     }
-    let authHeader = "";
+
+    let authHeader = '';
     if (this._jwt) authHeader = `JWT ${this._jwt}`;
     let headers: Record<string, string> = {};
-    if (method !== "GET") {
+    if (method !== 'GET') {
       headers = {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       };
     }
-    if (authHeader && auth)
+    if (authHeader && auth) {
       headers = {
         ...headers,
         Authorization: authHeader,
       };
+    }
 
     const response = await fetch(url, {
       headers,
       method,
-      ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
+      ...(method !== 'GET' ? {body: JSON.stringify(body)} : {}),
     });
 
     if (response.status !== 200) {
@@ -53,6 +56,7 @@ export abstract class ApiConnection extends BaseClass {
     }
 
     const data = await response.text();
+
     let parsed: unknown;
     try {
       parsed = JSON.parse(data);
@@ -60,7 +64,7 @@ export abstract class ApiConnection extends BaseClass {
       throw new Error(`Received invalid data: ${data}`);
     }
 
-    if (typeof parsed === "string") {
+    if (typeof parsed === 'string') {
       throw new Error(parsed);
     }
 

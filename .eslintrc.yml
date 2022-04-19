@@ -12,6 +12,7 @@ plugins:
   - "@typescript-eslint"
 
 rules:
+  curly: ["error", "multi-line"]
   indent: "off"
   semi: "off"
   "@typescript-eslint/no-floating-promises": "error"
