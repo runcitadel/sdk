@@ -4,6 +4,7 @@ import type {
   backupStatus,
   connectionDetails,
   debugStatus,
+  systemStatus,
   LndConnectionDetails,
   memUsage,
   RpcConnectionDetails,
@@ -70,16 +71,16 @@ export class ManagerSystem extends ApiConnection {
     return await this.get<debugStatus>("debug-result");
   }
 
-  async debug(): Promise<void> {
-    await this.post("debug");
+  async debug(): Promise<debugStatus> {
+    return await this.post<debugStatus>("debug");
   }
 
-  async shutdown(): Promise<void> {
-    await this.post("shutdown");
+  async shutdown(): Promise<systemStatus> {
+    return await this.post<systemStatus>("shutdown");
   }
 
-  async reboot(): Promise<void> {
-    await this.post("reboot");
+  async reboot(): Promise<systemStatus> {
+    return await this.post<systemStatus>("reboot");
   }
 
   async storage(): Promise<memUsage> {

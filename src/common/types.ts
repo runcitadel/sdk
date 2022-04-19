@@ -103,10 +103,14 @@ export type backupStatus = {
   timestamp: number;
 };
 export type debugStatus = {
-  status: "processing" | "success";
+  status: "requested" | "processing" | "success";
   debug: string;
   /** The dmesg logs */
   dmesg: string;
+};
+export type systemStatus = {
+  type: "reboot" | "shutdown";
+  status: "requested";
 };
 
 export type connectionDetails = {
