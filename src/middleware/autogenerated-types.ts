@@ -972,7 +972,6 @@ export interface ListPaymentsResponse {
   lastIndexOffset: number | string;
 }
 
-
 export interface PayReq {
   destination?: string;
   paymentHash?: string;

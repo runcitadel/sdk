@@ -1,9 +1,9 @@
-import { ApiConnection } from "../common/connection.js";
-import { RequestFunction } from "src/common/types.js";
-import { ManagerApps } from "./apps.js";
-import { ManagerAuth } from "./auth.js";
-import { ManagerExternal } from "./external.js";
-import { ManagerSystem } from "./system.js";
+import {ApiConnection} from '../common/connection.js';
+import {RequestFunction} from 'src/common/types.js';
+import {ManagerApps} from './apps.js';
+import {ManagerAuth} from './auth.js';
+import {ManagerExternal} from './external.js';
+import {ManagerSystem} from './system.js';
 
 export class Manager extends ApiConnection {
   readonly auth: ManagerAuth;
@@ -32,7 +32,7 @@ export class Manager extends ApiConnection {
       version: string;
       features?: string[];
       isCitadel?: true | undefined;
-    }>("ping");
+    }>('ping');
   }
 
   /**

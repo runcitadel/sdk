@@ -1,4 +1,4 @@
-export type BitcoinNetwork = "main" | "test" | "regtest";
+export type BitcoinNetwork = 'main' | 'test' | 'regtest';
 export type scriptPubkeyType = string;
 export type Block = {
   hash: string;
@@ -45,7 +45,7 @@ export type ChainInfo = {
   }[];
   bip9_softforks: {
     [key: string]: {
-      status: "defined" | "started" | "locked_in" | "active" | "failed";
+      status: 'defined' | 'started' | 'locked_in' | 'active' | 'failed';
     };
   }[];
   warnings?: string;

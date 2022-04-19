@@ -1,10 +1,10 @@
-import { ApiConnection } from "../common/connection.js";
-import { joinUrl } from "../common/utils.js";
-import type { app } from "../common/types";
+import {ApiConnection} from '../common/connection.js';
+import {joinUrl} from '../common/utils.js';
+import type {app} from '../common/types';
 
 export class ManagerApps extends ApiConnection {
   constructor(baseUrl: string) {
-    super(joinUrl(baseUrl, "v1/apps"));
+    super(joinUrl(baseUrl, 'v1/apps'));
   }
 
   /**
@@ -14,13 +14,13 @@ export class ManagerApps extends ApiConnection {
    * @returns A list of apps with metadata
    */
   async list(installed = false): Promise<app[]> {
-    return (await this.get<app[]>(installed ? "/?installed=1" : "/")).map(
+    return (await this.get<app[]>(installed ? '/?installed=1' : '/')).map(
       (app) => {
         return {
           ...app,
           compatible: app.compatible ?? true,
         };
-      }
+      },
     );
   }
 

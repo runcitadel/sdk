@@ -1,16 +1,16 @@
-import { Manager } from "./manager/index.js";
-import { Middleware } from "./middleware/index.js";
-import { joinUrl } from "./common/utils.js";
-import { RequestFunction } from "./common/types.js";
+import {Manager} from './manager/index.js';
+import {Middleware} from './middleware/index.js';
+import {joinUrl} from './common/utils.js';
+import {RequestFunction} from './common/types.js';
 
 export default class Citadel {
   readonly manager;
   readonly middleware;
-  private _jwt = "";
+  private _jwt = '';
 
   constructor(baseUrl: string) {
-    const middlewareApi = joinUrl(baseUrl, "api");
-    const managerApi = joinUrl(baseUrl, "manager-api");
+    const middlewareApi = joinUrl(baseUrl, 'api');
+    const managerApi = joinUrl(baseUrl, 'manager-api');
     this.manager = new Manager(managerApi.toString());
     this.middleware = new Middleware(middlewareApi.toString());
   }
@@ -80,8 +80,8 @@ export default class Citadel {
    * Try to discover a node on the network
    * @returns The discovered node or false if none found
    */
-   public static async discover(): Promise<string | false> {
-    for (const hostname of ["citadel.local", "citadel"]) {
+  public static async discover(): Promise<string | false> {
+    for (const hostname of ['citadel.local', 'citadel']) {
       try {
         await fetch(`http://${hostname}`);
         return hostname;

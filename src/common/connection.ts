@@ -1,10 +1,10 @@
 /// <reference lib="dom" />
 
-import { joinUrl } from "./utils.js";
-import { RequestFunction } from "./types.js";
+import {joinUrl} from './utils.js';
+import {RequestFunction} from './types.js';
 
 export abstract class ApiConnection {
-  protected _jwt = "";
+  protected _jwt = '';
 
   public set jwt(jwt: string) {
     this._jwt = jwt;
@@ -22,9 +22,9 @@ export abstract class ApiConnection {
 
   async _request<ResponseType = unknown>(
     url: string,
-    method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
     body: unknown = {},
-    auth = true
+    auth = true,
   ): Promise<ResponseType> {
     url = joinUrl(this._baseUrl, url);
     if (this._requestFunc) {
@@ -32,27 +32,28 @@ export abstract class ApiConnection {
         this._jwt,
         url,
         method,
-        auth
+        auth,
       );
     }
-    let authHeader = "";
+    let authHeader = '';
     if (this._jwt) authHeader = `JWT ${this._jwt}`;
     let headers: Record<string, string> = {};
-    if (method !== "GET") {
+    if (method !== 'GET') {
       headers = {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       };
     }
-    if (authHeader && auth)
+    if (authHeader && auth) {
       headers = {
         ...headers,
         Authorization: authHeader,
       };
+    }
 
     const response = await fetch(url, {
       headers,
       method,
-      ...(method !== "GET" ? { body: JSON.stringify(body) } : {}),
+      ...(method !== 'GET' ? {body: JSON.stringify(body)} : {}),
     });
 
     if (response.status !== 200) {
@@ -67,7 +68,7 @@ export abstract class ApiConnection {
       throw new Error(`Received invalid data: ${data}`);
     }
 
-    if (typeof parsed === "string") {
+    if (typeof parsed === 'string') {
       throw new Error(parsed);
     }
 
@@ -76,32 +77,32 @@ export abstract class ApiConnection {
 
   protected async get<ResponseType = unknown>(
     url: string,
-    auth = true
+    auth = true,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, "GET", undefined, auth);
+    return await this._request<ResponseType>(url, 'GET', undefined, auth);
   }
 
   protected async post<ResponseType = unknown>(
     url: string,
     body: unknown = {},
-    auth = true
+    auth = true,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, "POST", body, auth);
+    return await this._request<ResponseType>(url, 'POST', body, auth);
   }
 
   protected async put<ResponseType = unknown>(
     url: string,
     body: unknown = {},
-    auth = true
+    auth = true,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, "PUT", body, auth);
+    return await this._request<ResponseType>(url, 'PUT', body, auth);
   }
 
   protected async delete<ResponseType = unknown>(
     url: string,
     body: unknown = {},
-    auth = true
+    auth = true,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, "DELETE", body, auth);
+    return await this._request<ResponseType>(url, 'DELETE', body, auth);
   }
 }

@@ -1,5 +1,5 @@
-import { ApiConnection } from "../common/connection.js";
-import { joinUrl } from "../common/utils.js";
+import {ApiConnection} from '../common/connection.js';
+import {joinUrl} from '../common/utils.js';
 
 /** A user.json file on Citadel. Some data may automatically be added and not actually in the file */
 export type user = {
@@ -25,16 +25,17 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string} A JsonWebToken for the user
    */
   public async login(password: string, totpToken: string): Promise<string> {
-    const data = await this.post<{ jwt?: string }>(
-      "login",
+    const data = await this.post<{jwt?: string}>(
+      'login',
       {
         password,
         totpToken,
       },
-      false
+      false,
     );
-    if (typeof data !== "object" || data === null || !data.jwt)
-      throw new Error("Failed to login.");
+    if (typeof data !== 'object' || data === null || !data.jwt) {
+      throw new Error('Failed to login.');
+    }
     return data.jwt;
   }
 
@@ -44,9 +45,10 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string} A new JWT for the user
    */
   public async refresh(): Promise<string> {
-    const data = await this.post<{ jwt: string }>("refresh");
-    if (typeof data !== "object" || data === null || !data.jwt)
-      throw new Error("Failed to login.");
+    const data = await this.post<{jwt: string}>('refresh');
+    if (typeof data !== 'object' || data === null || !data.jwt) {
+      throw new Error('Failed to login.');
+    }
     return data.jwt;
   }
 
@@ -56,7 +58,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {user} The user's data
    */
   public async info(): Promise<user> {
-    return await this.get<user>("info");
+    return await this.get<user>('info');
   }
 
   /**
@@ -84,12 +86,16 @@ export class ManagerAuth extends ApiConnection {
    */
   public async changePassword(
     currentPassword: string,
-    newPassword: string
+    newPassword: string,
   ): Promise<void> {
-    await this.post("change-password", {
-      password: currentPassword,
-      newPassword,
-    }, false);
+    await this.post(
+      'change-password',
+      {
+        password: currentPassword,
+        newPassword,
+      },
+      false,
+    );
   }
 
   /**
@@ -98,7 +104,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {changePasswordStatus} The status of the password change
    */
   public async changePasswordStatus(): Promise<changePasswordStatus> {
-    return await this.post<changePasswordStatus>("change-password/status");
+    return await this.post<changePasswordStatus>('change-password/status');
   }
 
   /**
@@ -107,7 +113,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {boolean} True if the user exists
    */
   public async isRegistered(): Promise<boolean> {
-    return (await this.get<{ registered: boolean }>("registered")).registered;
+    return (await this.get<{registered: boolean}>('registered')).registered;
   }
 
   /**
@@ -122,14 +128,14 @@ export class ManagerAuth extends ApiConnection {
   public async register(
     username: string,
     password: string,
-    seed: string[]
+    seed: string[],
   ): Promise<string> {
-    const data = await this.post<{ jwt?: string }>("register", {
+    const data = await this.post<{jwt?: string}>('register', {
       seed,
       password,
       name: username,
     });
-    if (!data.jwt) throw new Error("Failed to register new user.");
+    if (!data.jwt) throw new Error('Failed to register new user.');
     return data.jwt;
   }
 
@@ -140,15 +146,15 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string[]} The mnemonic seed
    */
   public async seed(password: string, totpToken?: string): Promise<string[]> {
-    const data = await this.post<{ seed?: string[] }>(
-      "seed",
+    const data = await this.post<{seed?: string[]}>(
+      'seed',
       {
         password,
         totpToken,
       },
-      false
+      false,
     );
-    if (!data.seed) throw new Error("Failed to get seed.");
+    if (!data.seed) throw new Error('Failed to get seed.');
     return data.seed;
   }
 
@@ -158,7 +164,7 @@ export class ManagerAuth extends ApiConnection {
    * @returns {string} The TOTP key
    */
   public async setupTotp(): Promise<string> {
-    return (await this.get<{ key: string }>("totp/setup")).key;
+    return (await this.get<{key: string}>('totp/setup')).key;
   }
 
   /**
@@ -166,19 +172,18 @@ export class ManagerAuth extends ApiConnection {
    * @param key The TOTP key
    */
   public async enableTotp(key: string): Promise<void> {
-    await this.post("totp/enable", {
+    await this.post('totp/enable', {
       authenticatorToken: key,
     });
   }
 
   public async disableTotp(key: string): Promise<void> {
-    await this.post("totp/disable", {
+    await this.post('totp/disable', {
       authenticatorToken: key,
     });
   }
 
   public async isTotpEnabled(): Promise<boolean> {
-    return (await this.get<{ totpEnabled: boolean }>("totp/status"))
-      .totpEnabled;
+    return (await this.get<{totpEnabled: boolean}>('totp/status')).totpEnabled;
   }
 }
