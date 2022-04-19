@@ -22,6 +22,7 @@ export class ManagerAuth extends ApiConnection {
   /**
    * Login to the node.
    * @param password The users password
+   * @param totpToken The TOTP token
    * @returns {string} A JsonWebToken for the user
    */
   public async login(password: string, totpToken: string): Promise<string> {
@@ -83,16 +84,19 @@ export class ManagerAuth extends ApiConnection {
    *
    * @param currentPassword The current password
    * @param newPassword The new password
+   * @param totpToken The TOTP token
    */
   public async changePassword(
     currentPassword: string,
     newPassword: string,
+    totpToken: string,
   ): Promise<void> {
     await this.post(
       'change-password',
       {
         password: currentPassword,
         newPassword,
+        totpToken,
       },
       false,
     );
