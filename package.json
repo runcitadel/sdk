@@ -1,7 +1,18 @@
 {
   "name": "@runcitadel/sdk",
   "version": "0.3.8",
-  "packageManager": "yarn@3.2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "browser": "browser/index.js",
+  "scripts": {
+    "start:node": "rollup --watch -c",
+    "start:browser": "rollup --watch -c rollup.config.browser.js",
+    "lint": "eslint --fix . && prettier -w \"src/**/*.ts\"",
+    "build": "rm -rf dist browser && rollup -c && rollup -c rollup.config.browser.js",
+    "docs": "typedoc --out docs src/index.ts",
+    "deps": "ncu -u",
+    "prepublish": "yarn build"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.3",
     "@rollup/plugin-node-resolve": "^13.1.3",
@@ -20,19 +31,10 @@
     "typedoc": "^0.22.13",
     "typescript": "^4.6.3"
   },
-  "type": "module",
-  "scripts": {
-    "lint": "eslint --fix . && prettier -w \"src/**/*.ts\"",
-    "build": "rm -rf dist browser && rollup -c && rollup -c rollup.config.browser.js",
-    "docs": "typedoc --out docs src/index.ts",
-    "deps": "ncu -u",
-    "prepublish": "yarn build"
-  },
   "optionalDependencies": {
     "@types/react": "^17.0.43",
     "react": "^18.0.0",
     "undici": "^5.0.0"
   },
-  "main": "dist/index.js",
-  "browser": "browser/index.js"
+  "packageManager": "yarn@3.2.0"
 }
