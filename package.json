@@ -1,6 +1,6 @@
 {
   "name": "@runcitadel/sdk",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "type": "module",
   "main": "dist/index.js",
   "browser": "browser/index.js",
