@@ -1,4 +1,4 @@
-import { ApiConnection } from "platform/connection.js";
+import { ApiConnection } from "../common/connection.js";
 import type {
   Channel,
   ChannelBalanceResponse,

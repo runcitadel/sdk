@@ -1,4 +1,4 @@
-import Citadel from "platform/citadel";
+import Citadel from "./citadel.js";
 import { useRef } from "react";
 
 /**

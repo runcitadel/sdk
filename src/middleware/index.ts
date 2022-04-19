@@ -1,4 +1,4 @@
-import { ApiConnection } from "platform/connection.js";
+import { ApiConnection } from "../common/connection.js";
 import { RequestFunction } from "src/common/types.js";
 import { MiddlewareBitcoin } from "./bitcoin.js";
 import { MiddlewareLND } from "./lnd.js";

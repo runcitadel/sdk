@@ -1,7 +1,7 @@
-import { ApiConnection } from "platform/connection.js";
+import { ApiConnection } from "../common/connection.js";
 import { joinUrl } from "../common/utils.js";
 
-type LnAddressSignupResponse =
+export type LnAddressSignupResponse =
   | "Address added successfully"
   | "Error: Address limit reached"
   | "Error: Address already in use"

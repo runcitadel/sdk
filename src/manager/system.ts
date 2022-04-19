@@ -1,4 +1,4 @@
-import { ApiConnection } from "platform/connection.js";
+import { ApiConnection } from "../common/connection.js";
 import { joinUrl } from "../common/utils.js";
 import type {
   backupStatus,
