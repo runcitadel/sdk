@@ -5,12 +5,11 @@
   "main": "dist/index.js",
   "browser": "browser/index.js",
   "scripts": {
-    "start:node": "rollup --watch -c",
-    "start:browser": "rollup --watch -c rollup.config.browser.js",
+    "start": "rollup --watch -c",
     "tsc:check": "tsc --noEmit",
     "lint": "eslint --fix . && prettier -w \"src/**/*.ts\"",
-    "lint:check": "eslint . \"src/**/*.ts\"",
-    "build": "rm -rf dist browser && rollup -c && rollup -c rollup.config.browser.js",
+    "lint:check": "eslint . && prettier \"src/**/*.ts\"",
+    "build": "rm -rf dist browser && rollup -c",
     "docs": "typedoc --out docs src/index.ts",
     "prepublish": "yarn build"
   },
