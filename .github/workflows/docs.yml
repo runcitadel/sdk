@@ -32,12 +32,25 @@ jobs:
                   yarn
                   yarn build
                   yarn docs
-                  # Prevent GitHub from trying to use Jekyll
-                  touch docs/.nojekyll
                   echo "sdk.runcitadel.space" > docs/CNAME
 
-            - name: Deploy
-              uses: peaceiris/actions-gh-pages@v3
+            - name: Archive build output
+              run: tar --dereference --hard-dereference --directory docs/ -cvf artifact.tar .
+
+            - name: Upload Artifact
+              uses: actions/upload-artifact@main
               with:
-                  publish_dir: ./docs
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                name: github-pages
+                path: ./artifact.tar
+                if-no-files-found: warn
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: build
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v1-beta
