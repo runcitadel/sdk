@@ -1,8 +1,5 @@
-/// <reference types="node" />
 /** A dependency an app could have */
 export type Dependency = 'bitcoind' | 'electrum' | 'lnd';
-/** A permission which can be granted to an app */
-export type Permission = Dependency | 'root' | 'hw';
 /**
  * Defines an app
  */
@@ -20,11 +17,11 @@ export type app = {
   /** A longer description of the app (50 to 200 words) */
   description: string;
   /** The person(s) who created the app */
-  developers: Record<string, string>;
-  /** The url to the app's website */
-  website: string;
+  developer?: string;
+  /** The person(s) who created the app */
+  developers?: Record<string, string>;
   /** The dependencies of the app */
-  dependencies: Dependency[];
+  dependencies: (Dependency | Dependency[])[];
   /** The url to the app's Git repository */
   repo: string | Record<string, string>;
   /** The url to the app's support website/chat */
