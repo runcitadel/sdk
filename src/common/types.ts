@@ -1,5 +1,5 @@
 /** A dependency an app could have */
-export type Dependency = 'bitcoind' | 'electrum' | 'lnd';
+export type Dependency = 'bitcoind' | 'electrum' | 'lnd'  | 'c-lightning';
 /**
  * Defines an app
  */
