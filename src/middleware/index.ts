@@ -2,17 +2,20 @@ import {ApiConnection} from '../common/connection.js';
 import {RequestFunction} from 'src/common/types.js';
 import {MiddlewareBitcoin} from './bitcoin.js';
 import {MiddlewareLND} from './lnd.js';
+import {MiddlewareLiquid} from './liquid';
 import {MiddlewarePages} from './pages.js';
 
 export class Middleware extends ApiConnection {
   readonly pages: MiddlewarePages;
   readonly bitcoin: MiddlewareBitcoin;
   readonly lightning: MiddlewareLND;
+  readonly liquid: MiddlewareLiquid;
   constructor(baseUrl: string) {
     super(baseUrl);
     this.pages = new MiddlewarePages(baseUrl);
     this.bitcoin = new MiddlewareBitcoin(baseUrl);
     this.lightning = new MiddlewareLND(baseUrl);
+    this.liquid = new MiddlewareLiquid(baseUrl);
   }
 
   /**
@@ -42,14 +45,14 @@ export class Middleware extends ApiConnection {
   }
 
   public set jwt(newJwt: string) {
-    // This is ugly, but makes the final bundle smaller
-    this.bitcoin.jwt = this.pages.jwt = this.lightning.jwt = this._jwt = newJwt;
+    this.bitcoin.jwt = this.pages.jwt = this.lightning.jwt = this.liquid.jwt = this._jwt = newJwt;
   }
 
   public set requestFunc(requestFunc: RequestFunction) {
     this.bitcoin.requestFunc =
       this.pages.requestFunc =
       this.lightning.requestFunc =
+      this.liquid.requestFunc =
       this._requestFunc =
         requestFunc;
   }
