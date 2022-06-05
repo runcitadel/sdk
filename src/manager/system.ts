@@ -104,6 +104,12 @@ export class ManagerSystem extends ApiConnection {
       .externalStorage;
   }
 
+  async setUpdateChannel(channel: string): Promise<void> {
+    return this.put('uptime', {
+      channel,
+    });
+  }
+
   async isCitadelOS(): Promise<boolean> {
     return (await this.get<{os: 'Citadel' | 'unknown'}>('/')).os === 'Citadel';
   }
