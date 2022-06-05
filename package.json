@@ -4,7 +4,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "rollup --watch -c",
+    "start": "tsup src/index.ts --format cjs,esm --dts --watch",
     "tsc:check": "tsc --noEmit",
     "lint": "eslint --fix . && prettier -w \"src/**/*.ts\"",
     "lint:check": "eslint . && prettier \"src/**/*.ts\"",
