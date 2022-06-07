@@ -104,8 +104,12 @@ export class ManagerSystem extends ApiConnection {
       .externalStorage;
   }
 
+  async getUpdateChannel(channel: string): Promise<void> {
+    return (await this.get<{channel: string}>('update-channel')).channel;
+  }
+
   async setUpdateChannel(channel: string): Promise<void> {
-    return this.put('uptime', {
+    return this.put('update-channel', {
       channel,
     });
   }
