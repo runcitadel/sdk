@@ -104,6 +104,16 @@ export class ManagerSystem extends ApiConnection {
       .externalStorage;
   }
 
+  async getUpdateChannel(channel: string): Promise<void> {
+    return (await this.get<{channel: string}>('update-channel')).channel;
+  }
+
+  async setUpdateChannel(channel: string): Promise<void> {
+    return this.put('update-channel', {
+      channel,
+    });
+  }
+
   async isCitadelOS(): Promise<boolean> {
     return (await this.get<{os: 'Citadel' | 'unknown'}>('/')).os === 'Citadel';
   }
