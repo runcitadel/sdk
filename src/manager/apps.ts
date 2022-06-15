@@ -13,15 +13,17 @@ export class ManagerApps extends ApiConnection {
    * @param installed Set this to true if you only want a list of installed apps
    * @returns A list of apps with metadata
    */
-  async list(installed = false): Promise<app[]> {
-    return (await this.get<app[]>(installed ? '/?installed=1' : '/')).map(
-      (app) => {
-        return {
-          ...app,
-          compatible: app.compatible ?? true,
-        };
-      },
+  async list(installed = false): Promise<{apps: app[]; jwt: string}> {
+    let {apps, jwt} = await this.get<{apps: app[]; jwt: string}>(
+      installed ? '/?installed=1' : '/',
     );
+
+    apps = apps.map((app) => ({
+      ...app,
+      compatible: app.compatible ?? true,
+    }));
+
+    return {apps, jwt};
   }
 
   /**
