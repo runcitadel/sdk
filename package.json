@@ -1,6 +1,6 @@
 {
   "name": "@runcitadel/sdk",
-  "version": "0.5.1",
+  "version": "0.5.0",
   "repository": "https://github.com/runcitadel/sdk",
   "homepage": "https://sdk.runcitadel.space",
   "scripts": {
