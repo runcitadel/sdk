@@ -67,4 +67,13 @@ export class Manager extends ApiConnection {
       this._requestFunc =
         requestFunc;
   }
+
+  public set onAuthFailed(callback: (url: string) => void) {
+    this.auth.onAuthFailed =
+      this.apps.onAuthFailed =
+      this.external.onAuthFailed =
+      this.system.onAuthFailed =
+      this._onAuthFailed =
+        callback;
+  }
 }

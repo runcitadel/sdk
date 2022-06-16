@@ -4,20 +4,30 @@ import {joinUrl} from './utils.js';
 import {RequestFunction} from './types.js';
 
 export abstract class ApiConnection {
-  protected _jwt = '';
-
-  public set jwt(jwt: string) {
-    this._jwt = jwt;
-  }
-
   private readonly _baseUrl: string;
-  protected _requestFunc?: RequestFunction;
   constructor(baseUrl: string) {
     this._baseUrl = baseUrl;
   }
 
+  protected _jwt = '';
+  public set jwt(jwt: string) {
+    this._jwt = jwt;
+  }
+
+  /**
+   * Custom request function (optional)
+   */
+  protected _requestFunc?: RequestFunction;
   set requestFunc(requestFunc: RequestFunction) {
     this._requestFunc = requestFunc;
+  }
+
+  /**
+   * Callback to run when a request returns status 401 (optional)
+   */
+  protected _onAuthFailed?: (url: string) => void;
+  set onAuthFailed(callback: (url: string) => void) {
+    this._onAuthFailed = callback;
   }
 
   async _request<ResponseType = unknown>(
@@ -55,6 +65,12 @@ export abstract class ApiConnection {
       method,
       ...(method !== 'GET' ? {body: JSON.stringify(body)} : {}),
     });
+
+    if (response.status === 401) {
+      if (this._onAuthFailed) {
+        this._onAuthFailed(url);
+      }
+    }
 
     if (response.status !== 200) {
       throw new Error(await response.text());
