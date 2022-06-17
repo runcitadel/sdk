@@ -3,7 +3,7 @@ export type Dependency = 'bitcoind' | 'electrum' | 'lnd'  | 'c-lightning';
 /**
  * Defines an app
  */
-export type app = {
+export type OldApp = {
   /** The id of the app, the name as a simple string without spaces */
   id: string;
   /** A category for the app, used for grouping apps on the dashboard */
@@ -41,6 +41,66 @@ export type app = {
   /** Automatically added */
   compatible: boolean;
 };
+
+export type MetadataV4 = {
+  /**
+   * The category for the app
+   */
+  category: string;
+  /**
+   * The app's default password. Can also be $APP_SEED for a random password
+   */
+  defaultPassword?: string | undefined;
+  developers: Record<string, string>;
+  /**
+   * A list of promo images for the apps
+   */
+  gallery?: string[] | undefined;
+  /**
+   * The name of the app
+   */
+  name: string;
+  /**
+   * The path the "Open" link on the dashboard should lead to
+   */
+  path?: string | undefined;
+  /**
+   * Permissions the app requires
+   */
+  permissions?: Array<string | string[]>;
+  /**
+   * App repository name -> repo URL
+   */
+  repo: Record<string, string>;
+  /**
+   * A support link for the app
+   */
+  support: string;
+  /**
+   * A short tagline for the app
+   */
+  tagline: string;
+  /**
+   * True if the app only works over Tor
+   */
+  torOnly?: boolean;
+  /**
+   * A list of containers to update automatically (still validated by the Citadel team)
+   */
+  updateContainers?: string[] | undefined;
+  /**
+   * The version of the app
+   */
+  version: string;
+  /** Automatically added */
+  hiddenService?: string;
+  /** Automatically added */
+  installed?: boolean;
+  /** Automatically added */
+  compatible: boolean;
+};
+
+export type app = MetadataV4 | OldApp;
 
 type BuildPowersOf2LengthArrays<
   N extends number,

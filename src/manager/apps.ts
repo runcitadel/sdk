@@ -61,7 +61,23 @@ export class ManagerApps extends ApiConnection {
   /**
    * Get a list of all apps which can be updates
    */
-  async listUpdateable(): Promise<string[]> {
-    return await this.get<string[]>(`/updates`);
+  async listUpdatable(): Promise<
+    Record<
+      string,
+      {
+        updateFrom: string;
+        updateTo: string;
+      }
+    >
+  > {
+    return await this.get<
+      Record<
+        string,
+        {
+          updateFrom: string;
+          updateTo: string;
+        }
+      >
+    >(`/updates`);
   }
 }
