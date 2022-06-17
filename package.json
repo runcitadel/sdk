@@ -1,8 +1,6 @@
 {
   "name": "@runcitadel/sdk",
   "version": "0.5.0",
-  "type": "module",
-  "main": "./dist/index.js",
   "repository": "https://github.com/runcitadel/sdk",
   "homepage": "https://sdk.runcitadel.space",
   "scripts": {
@@ -17,6 +15,7 @@
   "engines": {
     "node": ">=18"
   },
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
