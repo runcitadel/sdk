@@ -76,6 +76,10 @@ export default class Citadel {
     this.manager.requestFunc = this.middleware.requestFunc = requestFunc;
   }
 
+  public set onAuthFailed(callback: (url: string) => void) {
+    this.manager.onAuthFailed = this.middleware.onAuthFailed = callback;
+  }
+
   /**
    * Try to discover a node on the network
    * @returns The discovered node or false if none found

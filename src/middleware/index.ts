@@ -45,7 +45,12 @@ export class Middleware extends ApiConnection {
   }
 
   public set jwt(newJwt: string) {
-    this.bitcoin.jwt = this.pages.jwt = this.lightning.jwt = this.liquid.jwt = this._jwt = newJwt;
+    this.bitcoin.jwt =
+      this.pages.jwt =
+      this.lightning.jwt =
+      this.liquid.jwt =
+      this._jwt =
+        newJwt;
   }
 
   public set requestFunc(requestFunc: RequestFunction) {
@@ -55,5 +60,14 @@ export class Middleware extends ApiConnection {
       this.liquid.requestFunc =
       this._requestFunc =
         requestFunc;
+  }
+
+  public set onAuthFailed(callback: (url: string) => void) {
+    this.bitcoin.onAuthFailed =
+      this.pages.onAuthFailed =
+      this.lightning.onAuthFailed =
+      this.liquid.onAuthFailed =
+      this._onAuthFailed =
+        callback;
   }
 }
