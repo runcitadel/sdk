@@ -45,6 +45,16 @@ export class MiddlewareLND extends ApiConnection {
         requestFunc;
   }
 
+  public set onAuthFailed(callback: (url: string) => void) {
+    this.channel.onAuthFailed =
+      this.info.onAuthFailed =
+      this.lightning.onAuthFailed =
+      this.transaction.onAuthFailed =
+      this.wallet.onAuthFailed =
+      this._onAuthFailed =
+        callback;
+  }
+
   public async address(): Promise<NewAddressResponse> {
     return await this.get<NewAddressResponse>('address');
   }
@@ -54,6 +64,7 @@ export class MiddlewareLND extends ApiConnection {
       await this.post<{signature: string}>('util/sign-message', {message})
     ).signature;
   }
+
   public async validateMessage(
     message: string,
     signature: string,
