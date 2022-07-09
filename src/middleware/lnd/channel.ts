@@ -132,4 +132,10 @@ export class LNDChannel extends ApiConnection {
       })
     ).fundingTxId;
   }
+
+  public async getBackup(): Promise<Blob> {
+    return (
+      await this.get('/v1/lnd/util/download-channel-backup')
+    )
+  }
 }
