@@ -35,6 +35,7 @@ export abstract class ApiConnection {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
     body: unknown = {},
     auth = true,
+    blob = false,
   ): Promise<ResponseType> {
     url = joinUrl(this._baseUrl, url);
     if (this._requestFunc) {
@@ -76,6 +77,10 @@ export abstract class ApiConnection {
       throw new Error(await response.text());
     }
 
+    if (blob) {
+      return await response.blob() as unknown as ResponseType;
+    }
+
     const data = await response.text();
     let parsed: unknown;
     try {
@@ -94,31 +99,35 @@ export abstract class ApiConnection {
   protected async get<ResponseType = unknown>(
     url: string,
     auth = true,
+    blob = false,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, 'GET', undefined, auth);
+    return await this._request<ResponseType>(url, 'GET', undefined, auth, blob);
   }
 
   protected async post<ResponseType = unknown>(
     url: string,
     body: unknown = {},
     auth = true,
+    blob = false,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, 'POST', body, auth);
+    return await this._request<ResponseType>(url, 'POST', body, auth, blob);
   }
 
   protected async put<ResponseType = unknown>(
     url: string,
     body: unknown = {},
     auth = true,
+    blob = false,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, 'PUT', body, auth);
+    return await this._request<ResponseType>(url, 'PUT', body, auth, blob);
   }
 
   protected async delete<ResponseType = unknown>(
     url: string,
     body: unknown = {},
     auth = true,
+    blob = false,
   ): Promise<ResponseType> {
-    return await this._request<ResponseType>(url, 'DELETE', body, auth);
+    return await this._request<ResponseType>(url, 'DELETE', body, auth, blob);
   }
 }
