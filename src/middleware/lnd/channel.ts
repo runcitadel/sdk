@@ -134,8 +134,6 @@ export class LNDChannel extends ApiConnection {
   }
 
   public async getBackup(): Promise<Blob> {
-    return (
-      await this.get('/v1/lnd/util/download-channel-backup')
-    )
+    return await this.get('/v1/lnd/util/download-channel-backup', true, true);
   }
 }
