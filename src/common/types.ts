@@ -59,7 +59,7 @@ export type MetadataV4 = {
   /**
    * The version of the app
    */
-  version:         string;
+  version: string;
   versionControl?: null | string;
   /** Automatically added */
   hiddenService?: string;

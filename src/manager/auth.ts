@@ -133,14 +133,17 @@ export class ManagerAuth extends ApiConnection {
     username: string,
     password: string,
     seed: string[],
-  ): Promise<{jwt: string, backupId?: string}> {
-    const data = await this.post<{jwt?: string, backupId?: string}>('register', {
-      seed,
-      password,
-      name: username,
-    });
+  ): Promise<{jwt: string; backupId?: string}> {
+    const data = await this.post<{jwt?: string; backupId?: string}>(
+      'register',
+      {
+        seed,
+        password,
+        name: username,
+      },
+    );
     if (!data.jwt) throw new Error('Failed to register new user.');
-    return data as {jwt: string, backupId?: string};
+    return data as {jwt: string; backupId?: string};
   }
 
   /**

@@ -78,7 +78,7 @@ export abstract class ApiConnection {
     }
 
     if (blob) {
-      return await response.blob() as unknown as ResponseType;
+      return (await response.blob()) as unknown as ResponseType;
     }
 
     const data = await response.text();

@@ -119,6 +119,8 @@ export class ManagerSystem extends ApiConnection {
   }
 
   async isCitadelOS(): Promise<boolean> {
-    return (await this.get<{os: 'Citadel OS' | 'unknown'}>('/')).os === 'Citadel OS';
+    return (
+      (await this.get<{os: 'Citadel OS' | 'unknown'}>('/')).os === 'Citadel OS'
+    );
   }
 }
