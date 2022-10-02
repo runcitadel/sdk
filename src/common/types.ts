@@ -1,47 +1,3 @@
-/** A dependency an app could have */
-export type Dependency = 'bitcoind' | 'electrum' | 'lnd'  | 'c-lightning';
-/**
- * Defines an app
- */
-export type OldApp = {
-  /** The id of the app, the name as a simple string without spaces */
-  id: string;
-  /** A category for the app, used for grouping apps on the dashboard */
-  category: string;
-  /** The name of the app */
-  name: string;
-  /** The version of the app */
-  version: string;
-  /** A One line description of the app (max 50 characters) */
-  tagline: string;
-  /** A longer description of the app (50 to 200 words) */
-  description: string;
-  /** The person(s) who created the app */
-  developer?: string;
-  /** The person(s) who created the app */
-  developers?: Record<string, string>;
-  /** The dependencies of the app */
-  dependencies: (Dependency | Dependency[])[];
-  /** The url to the app's Git repository */
-  repo: string | Record<string, string>;
-  /** The url to the app's support website/chat */
-  support: string;
-  /** The port the app's web UI uses */
-  port: number;
-  /** A list of links to app promotional images, if no domain is provided, https://runcitadel.github.io/old-apps-gallery/${app.id}/ will be put in front of the path */
-  gallery: string[];
-  /** The path of the app the open button should open */
-  path: string;
-  /** The app's default password */
-  defaultPassword: string;
-  /** Automatically added */
-  hiddenService?: string;
-  /** Automatically added */
-  installed?: boolean;
-  /** Automatically added */
-  compatible: boolean;
-};
-
 export type MetadataV4 = {
   /**
    * The category for the app
@@ -50,12 +6,24 @@ export type MetadataV4 = {
   /**
    * The app's default password. Can also be $APP_SEED for a random password
    */
-  defaultPassword?: string | undefined;
+  defaultPassword?: string;
+  /**
+   * A description of the app
+   */
+  description: string;
   developers: Record<string, string>;
   /**
    * A list of promo images for the apps
    */
-  gallery?: string[] | undefined;
+  gallery?: string[];
+  /**
+   * The app id, only set in output
+   */
+  id?: string;
+  /**
+   * For "virtual" apps, the service the app implements
+   */
+  implements?: string;
   /**
    * The name of the app
    */
@@ -63,7 +31,7 @@ export type MetadataV4 = {
   /**
    * The path the "Open" link on the dashboard should lead to
    */
-  path?: string | undefined;
+  path?: string;
   /**
    * Permissions the app requires
    */
@@ -87,11 +55,12 @@ export type MetadataV4 = {
   /**
    * A list of containers to update automatically (still validated by the Citadel team)
    */
-  updateContainers?: string[] | undefined;
+  updateContainers?: string[] | null;
   /**
    * The version of the app
    */
-  version: string;
+  version:         string;
+  versionControl?: null | string;
   /** Automatically added */
   hiddenService?: string;
   /** Automatically added */
@@ -100,7 +69,7 @@ export type MetadataV4 = {
   compatible: boolean;
 };
 
-export type app = MetadataV4 | OldApp;
+export type app = MetadataV4;
 
 type BuildPowersOf2LengthArrays<
   N extends number,
